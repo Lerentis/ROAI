@@ -1,0 +1,16 @@
+Relics of Annorath Launcher
+====
+
+1. Prerequisites
+
+- qt5
+
+2. Compile
+
+- qmake -project
+- qmake
+- make
+
+3. Installtion
+
+Just copy the files to a directory.

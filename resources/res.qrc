@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>nda/nda_eng.txt</file>
+        <file>nda/nda_esp.txt</file>
+        <file>nda/nda_fra.txt</file>
+        <file>nda/nda_ger.txt</file>
+        <file>translation/roai_eng.qm</file>
+        <file>translation/roai_fra.qm</file>
+        <file>translation/roai_ger.qm</file>
+        <file>translation/roai_spa.qm</file>
+        <file>images/background.png</file>
+        <file>certs/class2.pem</file>
+        <file>certs/ca.pem</file>
+        <file>font/ModernAntiqua.ttf</file>
+    </qresource>
+</RCC>
