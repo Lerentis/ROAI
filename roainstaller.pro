@@ -11,12 +11,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = roainstaller
 TEMPLATE = app
 
-# Special libs for windows build
+# Special libs for windows build - since qt5 qmake can not work this that, should be fixed
 #win32
 #{
 #    win32-msvc*:contains(QMAKE_TARGET.arch, x86_64):
 #    {
-#        LIBS += "C:/Program Files/Microsoft SDKs/Windows/v7.1/Lib/x64/Shell32.lib"
+#       LIBS += "C:/buildenv/w8sdk/Lib/win8/um/x64/Shell32.lib"
 #    }
 #    else
 #    {
