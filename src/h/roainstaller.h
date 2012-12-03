@@ -49,6 +49,7 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QSslError>
+#include <QStandardPaths>
 
 /******************************************************************************/
 /*                                                                            */
@@ -231,11 +232,20 @@ class ROAInstaller : public QObject
          */
         void getNextFile();
 
+#ifdef Q_OS_LINUX
+        /**
+         * \brief Create linux shortcuts
+         * \param _path The path where the shortcut is created
+         */
+        void createLinuxShortcut(QString _path);
+#endif
+
 #ifdef Q_OS_WIN32
         /**
-         * \brief Create windows shortcuts (a bad joke of an api abuse!)
+         * \brief Create windows shortcuts
+         * \param _path The path where the shortcut is created
          */
-        void createWindowsShortcuts();
+        void createWindowsShortcuts(QString _path);
 #endif
 
     private slots:

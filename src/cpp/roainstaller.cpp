@@ -78,6 +78,13 @@ ROAInstaller::ROAInstaller(QObject *parent) :
     // Check path and remove old installation or outdated libs
     QString installPathOld = userSettings->value("installLocation","none").toString();
 
+    // Check for ending slash if not add it
+    if(!installPathOld.endsWith("/"))
+    {
+        installPathOld += "/";
+    }
+
+
     if(installPathOld != "none")
     {
         /// \todo Remove slash
@@ -199,19 +206,28 @@ void ROAInstaller::hidePage()
 void ROAInstaller::startInstallation()
 {
     // Set installation path
-    installationPath = install->getInstallPath() + "/relics of annorath/";
+    installationPath = install->getInstallPath();
+
+    // Check for ending slash
+    if(!installationPath.endsWith("/"))
+    {
+        installationPath += "/";
+    }
+
+    // Add app name
+    installationPath += "Relics of Annorath/";
 
     // Get components
     componentsSelected = components->getSelectedComponents();
 
     // Create all other folders - no checking here
-    QDir().mkpath(installationPath + "/downloads");
-    QDir().mkpath(installationPath + "/lib");
-    QDir().mkpath(installationPath + "/imageformats");
-    QDir().mkpath(installationPath + "/sounds");
-    QDir().mkpath(installationPath + "/files/bin");
-    QDir().mkpath(installationPath + "/files/data");
-    QDir().mkpath(installationPath + "/files/lib");
+    QDir().mkpath(installationPath + "downloads");
+    QDir().mkpath(installationPath + "lib");
+    QDir().mkpath(installationPath + "imageformats");
+    QDir().mkpath(installationPath + "sounds");
+    QDir().mkpath(installationPath + "files/bin");
+    QDir().mkpath(installationPath + "files/data");
+    QDir().mkpath(installationPath + "files/lib");
 
     // Prepare downloading
     certificates.append(QSslCertificate::fromPath(":/certs/class2.pem"));
@@ -248,7 +264,7 @@ void ROAInstaller::startInstallation()
 void ROAInstaller::prepareDownload()
 {
     // Open file and read it
-    QFile file(installationPath + "/downloads/files.txt");
+    QFile file(installationPath + "downloads/files.txt");
 
     if (file.open(QIODevice::ReadOnly))
     {
@@ -305,54 +321,26 @@ void ROAInstaller::getNextFile()
 
         if(componentsSelected.at(4).toInt())
         {
-            // Create menu entry
-            QFile menuEntry(QDir::homePath() + "/.local/share/applications/Relics of Annorath.desktop");
-            menuEntry.open(QIODevice::WriteOnly | QIODevice::Text);
-
-            QTextStream out(&menuEntry);
-
-            out << "[Desktop Entry]\n";
-            out << "Encoding=UTF-8\n";
-            out << "Version=1.0\n";
-            out << "Type=Application\n";
-            out << "Terminal=false\n";
-            out << "Exec=\"" + installationPath + "ROALauncher.sh" + "\"\n";
-            out << "Name=Relics of Annorath\n";
-            out << "Icon=" + installationPath + "/roa.ico" + "\n";
-
-            menuEntry.close();
+            createLinuxShortcut(QDir::homePath() + "/.local/share/applications/Relics of Annorath.desktop");
         }
 
         if(componentsSelected.at(5).toInt())
         {
-            // The same for the desktop - this is ugly oo
-            QFile menuEntry(QDir::homePath() + "/Desktop/Relics of Annorath.desktop");
-            menuEntry.open(QIODevice::WriteOnly | QIODevice::Text);
-
-            QTextStream out(&menuEntry);
-
-            out << "[Desktop Entry]\n";
-            out << "Encoding=UTF-8\n";
-            out << "Version=1.0\n";
-            out << "Type=Application\n";
-            out << "Terminal=false\n";
-            out << "Exec=\"" + installationPath + "ROALauncher.sh" + "\"\n";
-            out << "Name=Relics of Annorath\n";
-            out << "Icon=" + installationPath + "/roa.ico" + "\n";
-
-            menuEntry.close();
+            createLinuxShortcut(QDir::homePath() + "/Desktop/Relics of Annorath.desktop");
         }
 #endif
 
 #ifdef Q_OS_WIN32
+        /// \todo This part could still freeze the main thread, fix it
         if(componentsSelected.at(1).toInt() == 1)
         {
+            // This way the main thread should not freeze, does not work, things msdn is lying to me
             SHELLEXECUTEINFO ShExecInfo = {0};
             ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
             ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
             ShExecInfo.hwnd = NULL;
             ShExecInfo.lpVerb = NULL;
-            ShExecInfo.lpFile = reinterpret_cast<const WCHAR*>(QString(installationPath + "/downloads/dxwebsetup.exe").utf16());
+            ShExecInfo.lpFile = reinterpret_cast<const WCHAR*>(QString(installationPath + "downloads/dxwebsetup.exe").utf16());
             ShExecInfo.lpParameters = reinterpret_cast<const WCHAR*>(QString(" /q").utf16());
             ShExecInfo.lpDirectory = NULL;
             ShExecInfo.nShow = SW_HIDE;
@@ -367,7 +355,7 @@ void ROAInstaller::getNextFile()
             ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
             ShExecInfo.hwnd = NULL;
             ShExecInfo.lpVerb = NULL;
-            ShExecInfo.lpFile = reinterpret_cast<const WCHAR*>(QString(installationPath + "/downloads/vcredist_x64.exe").utf16());
+            ShExecInfo.lpFile = reinterpret_cast<const WCHAR*>(QString(installationPath + "downloads/vcredist_x64.exe").utf16());
             ShExecInfo.lpParameters = reinterpret_cast<const WCHAR*>(QString(" /q").utf16());
             ShExecInfo.lpDirectory = NULL;
             ShExecInfo.nShow = SW_HIDE;
@@ -382,13 +370,21 @@ void ROAInstaller::getNextFile()
             ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
             ShExecInfo.hwnd = NULL;
             ShExecInfo.lpVerb = NULL;
-            ShExecInfo.lpFile = reinterpret_cast<const WCHAR*>(QString(installationPath + "/downloads/oalinst.exe").utf16());
+            ShExecInfo.lpFile = reinterpret_cast<const WCHAR*>(QString(installationPath + "downloads/oalinst.exe").utf16());
             ShExecInfo.lpParameters = reinterpret_cast<const WCHAR*>(QString(" /silent").utf16());
             ShExecInfo.lpDirectory = NULL;
             ShExecInfo.nShow = SW_HIDE;
             ShExecInfo.hInstApp = NULL;
             ShellExecuteEx(&ShExecInfo);
             WaitForSingleObject(ShExecInfo.hProcess,INFINITE);
+        }
+        if(componentsSelected.at(4).toInt())
+        {
+            createWindowsShortcuts(QString(qgetenv("APPDATA")) + "/Microsoft/Windows/Start Menu/Programs/Relics of Annorath.lnk");
+        }
+        if(componentsSelected.at(5).toInt())
+        {
+            createWindowsShortcuts(QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0) + "/Relics of Annorath.lnk");
         }
 #endif
 
@@ -397,104 +393,34 @@ void ROAInstaller::getNextFile()
     }
 }
 
-#ifdef Q_OS_WIN32
-void ROAInstaller::createWindowsShortcuts()
+#ifdef Q_OS_LINUX
+void ROAInstaller::createLinuxShortcut(QString _path)
 {
-    // Get COM
-    CoInitialize(NULL);
+    // Create menu entry
+    QFile menuEntry(_path);
+    menuEntry.open(QIODevice::WriteOnly | QIODevice::Text);
 
-    // File system directory that contains the directories for the
-    // common program groups that appear on the Start menu for all users.
-    LPITEMIDLIST group;
+    QTextStream out(&menuEntry);
 
-    // Get a pointer to an item ID list that represents the path of a special folder.
-    HRESULT result = SHGetSpecialFolderLocation(NULL, SpecialFolderName, &group);
+    out << "[Desktop Entry]\n";
+    out << "Encoding=UTF-8\n";
+    out << "Version=1.0\n";
+    out << "Type=Application\n";
+    out << "Terminal=false\n";
+    out << "Exec=\"" + installationPath + "ROALauncher.sh" + "\"\n";
+    out << "Name=Relics of Annorath\n";
+    out << "Icon=" + installationPath + "roa.ico" + "\n";
 
-    // Convert the item ID list's binary representation into a file system path.
-    char SpecialFolderPath[_MAX_PATH-1];
+    menuEntry.close();
+}
 
-    // SpecialFolderPath is now Start Menu -> Programs path.
-    BOOL f = SHGetPathFromIDList(group, SpecialFolderPath);
+#endif
 
-    // Allocate a pointer to an IMalloc interface
-    LPMALLOC pMalloc;
-
-    // Get the address of our task allocator's IMalloc interface
-    result = SHGetMalloc(&pMalloc);
-
-    // Free the item ID list allocated by SHGetSpecialFolderLocation
-    pMalloc->Free(group);
-
-    // Free our task allocator
-    pMalloc->Release();
-
-    if (SpecialFolderName == CSIDL_COMMON_PROGRAMS)
-    {
-        char MyDirectory[_MAX_PATH-1];
-
-        // SpecialFolderPath = Start Menu -> Programs or Desktop path.
-        strcpy(MyDirectory, SpecialFolderPath);
-
-        // MyDirectory = Start Menu -> Programs -> My Program or Desktop Path -> My Program
-        strcat(MyDirectory, "My Program");
-
-        // Create Directory as Start Menu -> Programs -> My Program or Desktop Path -> My Program
-        CreateDirectory(MyDirectory, NULL);
-
-        char szTemp[_MAX_PATH-1];
-        strcpy(szTemp, MyDirectory);
-        strcat(szTemp, "");
-        strcat(szTemp, LinkName );
-        strcpy(LinkName, szTemp);
-        strcat(LinkName, ".lnk");       // LinkName should have .lnk extension."
-    }
-    else
-    {
-        char szTemp[_MAX_PATH-1];
-        strcpy(szTemp, SpecialFolderPath);
-        strcat(szTemp, "");
-        strcat(szTemp, LinkName );
-        strcpy(LinkName, szTemp);
-        strcat(LinkName, ".lnk");       // LinkName should have .lnk extension."
-    }
-
-    HRESULT hres = NULL;
-    IShellLink* psl = NULL;
-
-    // Get a pointer to the IShellLink interface.
-    hres = CoCreateInstance(CLSID_ShellLink,
-                            NULL,
-                            CLSCTX_INPROC_SERVER,
-                            IID_IShellLink,
-                            reinterpret_cast<void**>(&psl));
-
-    if (SUCCEEDED(hres))
-    {
-        IPersistFile* ppf = NULL;
-        psl->SetPath(FilePath); // Set the path to the shortcut target
-
-        char buf[_MAX_PATH-1];
-        ::GetCurrentDirectory(_MAX_PATH, buf);
-        strcat(buf,"IconDLL.dll");
-        psl->SetIconLocation(buf, 0);
-
-        // Query IShellLink for the IPersistFile interface for saving
-        // the shortcut in persistent storage.
-        hres = psl->QueryInterface(IID_IPersistFile, reinterpret_cast<void**>(&ppf));
-
-        if (SUCCEEDED(hres))
-        {
-            WCHAR WideCharacterBuffer[_MAX_PATH-1];
-
-            // Ensure that the string is ANSI.
-            MultiByteToWideChar(CP_ACP, 0, LinkName, -1, WideCharacterBuffer, MAX_PATH);
-
-            // Save the link by calling IPersistFile::Save.
-            hres = ppf->Save(WideCharacterBuffer, TRUE);
-            ppf->Release();
-        }
-        psl->Release();
-    }
+#ifdef Q_OS_WIN32
+void ROAInstaller::createWindowsShortcut(QString _path)
+{
+    // Fastes and easiest way to do this for windows system - windows api sucks...
+    QFile::link(installationPath + "ROALauncher.exe", _path);
 }
 #endif
 
@@ -526,10 +452,10 @@ void ROAInstaller::slot_downloadFinished(QNetworkReply *reply)
     switch(downloadPhase)
     {
         case 0:
-            fileName = "/downloads/files.txt";
+            fileName = "downloads/files.txt";
             break;
         case 1:
-            fileName = "/" + fileList.at(filesLeft);
+            fileName = fileList.at(filesLeft);
             break;
     }
 
