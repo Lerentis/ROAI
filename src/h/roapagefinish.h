@@ -46,6 +46,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
+
 namespace Ui
 {
     class ROAPageFinish;
@@ -102,12 +103,6 @@ class ROAPageFinish : public QWidget
         /*                                                                            */
         /******************************************************************************/
 
-    private slots:
-
-        /**
-         * \brief Closes the installer
-         */
-        void on_qbFinish_clicked();
 };
 
 #endif // ROAPAGEFINISH_H

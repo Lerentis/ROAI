@@ -51,16 +51,7 @@ ROAPageFinish::ROAPageFinish(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ROAPageFinish)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-
     ui->setupUi(this);
-
-    // Center the whole window
-    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
-    QPoint center = desktopRect.center();
-
-    this->move(center.x()-this->width()*0.5,  center.y()-this->height()*0.5);
 }
 
 ROAPageFinish::~ROAPageFinish()
@@ -85,8 +76,3 @@ ROAPageFinish::~ROAPageFinish()
 /*    Slots                                                                   */
 /*                                                                            */
 /******************************************************************************/
-
-void ROAPageFinish::on_qbFinish_clicked()
-{
-    QApplication::exit();
-}

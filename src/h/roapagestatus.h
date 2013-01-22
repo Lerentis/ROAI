@@ -59,6 +59,7 @@ class ROAPageStatus : public QWidget
         Q_OBJECT
 
     public:
+
         /******************************************************************************/
         /*                                                                            */
         /*    Members                                                                 */

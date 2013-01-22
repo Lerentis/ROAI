@@ -47,22 +47,24 @@
 /*    Constructor/Deconstructor                                               */
 /*                                                                            */
 /******************************************************************************/
-ROAPageInstall::ROAPageInstall(QWidget *parent) :
+ROAPageInstall::ROAPageInstall(QWidget *parent, QString _path) :
     QWidget(parent),
     ui(new Ui::ROAPageInstall)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-
     ui->setupUi(this);
-
-    ui->qlPath->setText(QDir::homePath());
-
-    // Center the whole window
-    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
-    QPoint center = desktopRect.center();
-
-    this->move(center.x()-this->width()*0.5,  center.y()-this->height()*0.5);
+    if(_path != "none")
+    {
+        ui->qlPath->setText(_path);
+    }
+    else
+    {
+#ifdef Q_OS_LINUX
+        ui->qlPath->setText(QDir::homePath() + "/Relics of Annorath");
+#endif
+#ifdef Q_OS_WIN32
+        ui->qlPath->setText(QString(getenv("PROGRAMFILES")) + "\\Relics of Annorath");
+#endif
+    }
 }
 
 ROAPageInstall::~ROAPageInstall()
@@ -78,7 +80,14 @@ ROAPageInstall::~ROAPageInstall()
 
 QString ROAPageInstall::getInstallPath()
 {
-    return ui->qlPath->text();
+    QString path = ui->qlPath->text();
+
+    if(!path.endsWith("/"))
+    {
+        path += "/";
+    }
+
+    return path;
 }
 
 /******************************************************************************/
@@ -98,20 +107,5 @@ void ROAPageInstall::on_qbBrowse_clicked()
     ui->qlPath->setText((QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                                                     QDir::homePath(),
                                                     QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks)));
-}
-
-void ROAPageInstall::on_qpNext_clicked()
-{
-    emit nextPage();
-}
-
-void ROAPageInstall::on_qpBack_clicked()
-{
-    emit previousPage();
-}
-
-void ROAPageInstall::on_qbCancel_clicked()
-{
-    QApplication::exit();
+                                                           | QFileDialog::DontResolveSymlinks)) + "/Relics of Annorath");
 }

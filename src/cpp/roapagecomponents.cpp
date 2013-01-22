@@ -52,22 +52,12 @@ ROAPageComponents::ROAPageComponents(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ROAPageComponents)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-
     ui->setupUi(this);
 
 #ifdef Q_OS_LINUX
-    ui->cbDX->hide();
     ui->cbMSVC->hide();
     ui->cbOAL->hide();
 #endif
-
-    // Center the whole window
-    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
-    QPoint center = desktopRect.center();
-
-    this->move(center.x()-this->width()*0.5,  center.y()-this->height()*0.5);
 }
 
 ROAPageComponents::~ROAPageComponents()
@@ -93,7 +83,6 @@ QStringList ROAPageComponents::getSelectedComponents()
     QStringList list;
 
     list.append(QString::number(ui->cbLauncher->isChecked()));
-    list.append(QString::number(ui->cbDX->isChecked()));
     list.append(QString::number(ui->cbMSVC->isChecked()));
     list.append(QString::number(ui->cbOAL->isChecked()));
     list.append(QString::number(ui->cbMenuEntry->isChecked()));
@@ -107,18 +96,3 @@ QStringList ROAPageComponents::getSelectedComponents()
 /*    Slots                                                                   */
 /*                                                                            */
 /******************************************************************************/
-
-void ROAPageComponents::on_qpNext_clicked()
-{
-    emit nextPage();
-}
-
-void ROAPageComponents::on_qpBack_clicked()
-{
-    emit previousPage();
-}
-
-void ROAPageComponents::on_qbCancel_clicked()
-{
-    QApplication::exit();
-}

@@ -52,18 +52,9 @@ ROAPageLicense::ROAPageLicense(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ROAPageLicense)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-
     ui->setupUi(this);
 
     setNDA();
-
-    // Center the whole window
-    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
-    QPoint center = desktopRect.center();
-
-    this->move(center.x()-this->width()*0.5,  center.y()-this->height()*0.5);
 }
 
 ROAPageLicense::~ROAPageLicense()
@@ -100,18 +91,3 @@ void ROAPageLicense::setNDA()
 /*    Slots                                                                   */
 /*                                                                            */
 /******************************************************************************/
-
-void ROAPageLicense::on_qpBack_clicked()
-{
-    emit previousPage();
-}
-
-void ROAPageLicense::on_qpAccept_clicked()
-{
-    emit nextPage();
-}
-
-void ROAPageLicense::on_qbCancel_clicked()
-{
-    QApplication::exit();
-}

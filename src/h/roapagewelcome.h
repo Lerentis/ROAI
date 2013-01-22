@@ -112,27 +112,10 @@ class ROAPageWelcome : public QWidget
     private slots:
 
         /**
-         * \brief Shows next page
-         */
-        void on_qpNext_clicked();
-
-        /**
          * \brief Changes the language to the selected one
          * \param _index The language index
          */
         void on_qcLanguage_currentIndexChanged(int _index);
-
-        /**
-         * \brief Cancels the installation
-         */
-        void on_qbCancel_clicked();
-
-    signals:
-
-        /**
-         * \brief Signal for next page
-         */
-        void nextPage();
 };
 
 #endif // ROAPAGEWELCOME_H

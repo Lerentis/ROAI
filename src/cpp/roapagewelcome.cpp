@@ -52,15 +52,10 @@ ROAPageWelcome::ROAPageWelcome(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ROAPageWelcome)
 {
+
     translator = new QTranslator();
 
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-
     ui->setupUi(this);
-
-    ui->qlDesc->setText(tr("The wizard installs the Relics of Annorath Alpha with all dependencies.\n\n\n"
-                          "Please select your language to proceed:"));
 
     ui->qcLanguage->setStyleSheet("QComboBox QAbstractItemView { background-color: lightgray; }"
                                   "QComboBox { border-width:1px;"
@@ -69,11 +64,15 @@ ROAPageWelcome::ROAPageWelcome(QWidget *parent) :
                                   "border-color: rgba(0, 0, 0, 120);"
                                   "selection-background-color: #b79155; }");
 
-    // Center the whole window
-    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
-    QPoint center = desktopRect.center();
-
-    this->move(center.x()-this->width()*0.5,  center.y()-this->height()*0.5);
+    // Add values to the boxes for language seleciton
+    ui->qcLanguage->addItem( "English", "english" );
+    ui->qcLanguage->addItem( "Deutsch", "german" );
+    ui->qcLanguage->addItem( "Français", "french" );
+    ui->qcLanguage->addItem( "Italiano", "italian" );
+    ui->qcLanguage->addItem( "Español", "spain" );
+    ui->qcLanguage->addItem( "Pусский", "russian" );
+    ui->qcLanguage->addItem( "Português", "portuguese" );
+    ui->qcLanguage->addItem( "ελληνικά", "greek" );
 }
 
 ROAPageWelcome::~ROAPageWelcome()
@@ -111,16 +110,8 @@ void ROAPageWelcome::changeEvent(QEvent *_event)
 /*                                                                            */
 /******************************************************************************/
 
-void ROAPageWelcome::on_qpNext_clicked()
-{
-    emit nextPage();
-}
-
 void ROAPageWelcome::on_qcLanguage_currentIndexChanged(int _index)
 {
-    // Remove translation
-    //QApplication::removeTranslator(translator);
-
     // Load new translation
     QString trans;
 
@@ -144,14 +135,4 @@ void ROAPageWelcome::on_qcLanguage_currentIndexChanged(int _index)
         default:
             trans = "roai_eng";
     }
-
-   // translator->load(trans,":/translation/");
-
-    // Retranslate
-    //QApplication::installTranslator(translator);
-}
-
-void ROAPageWelcome::on_qbCancel_clicked()
-{
-    QApplication::exit();
 }

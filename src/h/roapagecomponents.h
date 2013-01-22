@@ -108,34 +108,6 @@ class ROAPageComponents : public QWidget
         /*                                                                            */
         /******************************************************************************/
 
-    private slots:
-
-        /**
-         * \brief Display next page
-         */
-        void on_qpNext_clicked();
-
-        /**
-         * \brief Display previous page
-         */
-        void on_qpBack_clicked();
-
-        /**
-         * \brief Cancel the installation
-         */
-        void on_qbCancel_clicked();
-
-    signals:
-
-        /**
-         * \brief Signal for next page
-         */
-        void nextPage();
-
-        /**
-         * \brief Singal for previous page
-         */
-        void previousPage();
 };
 
 #endif // ROAPAGECOMPONENTS_H

@@ -20,9 +20,9 @@
  *              You should have received a copy of the GNU General Public License
  *              along with Relics of Annorath Installer.  If not, see <http://www.gnu.org/licenses/>.
  *
- * \brief       Handels the update process for the Installer and related files
+ * \brief       Handels the gui for displaying
  *
- * \file    	roainstaller.h
+ * \file    	roamainwidget.h
  *
  * \note
  *
@@ -34,46 +34,47 @@
  *
  */
 
-#ifndef ROAINSTALLER_H
-#define ROAINSTALLER_H
+#ifndef ROAMAINWIDGET_H
+#define ROAMAINWIDGET_H
 
 /******************************************************************************/
 /*                                                                            */
 /*    Qt includes                                                             */
 /*                                                                            */
 /******************************************************************************/
-#include <QObject>
-#include <QSettings>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QSslConfiguration>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QSslError>
-#include <QStandardPaths>
-#include <QFile>
+#include <QWidget>
+#include <QMouseEvent>
+#include <QMainWindow>
+#include <QProcess>
 #include <QMessageBox>
-#include <QFileDialog>
-
 
 /******************************************************************************/
 /*                                                                            */
 /*    Others includes                                                         */
 /*                                                                            */
 /******************************************************************************/
-
-#include "../h/roamainwidget.h"
+#include "../h/roapagecomponents.h"
+#include "../h/roapagefinish.h"
+#include "../h/roapageinstall.h"
+#include "../h/roapagelicense.h"
+#include "../h/roapagestatus.h"
+#include "../h/roapagewelcome.h"
 
 #ifdef Q_OS_WIN
 #include "../h/windowsprocess.h"
 #endif
 
+namespace Ui {
+    class RoaMainWidget;
+}
 
 /**
- * \brief Installer logic for the Relics of Annorath Launcher and game files
+ * \brief The RoaMainWidget class for the gui handling
  */
-class ROAInstaller : public QObject
+class RoaMainWidget : public QWidget
 {
         Q_OBJECT
+
     public:
 
         /******************************************************************************/
@@ -92,37 +93,42 @@ class ROAInstaller : public QObject
          * \brief Constructor
          * \param parent The parent
          */
-        explicit ROAInstaller(QObject *parent = 0);
+        explicit RoaMainWidget(QString _path, QWidget *parent = 0);
 
         /**
-         * \brief Deconstuctor
+         * \brief Deconstructor
          */
-        ~ROAInstaller();
+        ~RoaMainWidget();
 
         /**
-         * \brief Start the installation process
+         * \brief Get the installation path where all files are located
+         * \return The installation path ending wish "/"
          */
-        void install();
+        QString getInstallPath();
 
         /**
-         * \brief Start the verify process
+         * \brief Get the selected components selected during installation
+         * \return List with the selected components
          */
-        void verify();
+        QStringList getSelectedComponents();
 
         /**
-         * \brief Start the repair process
+         * \brief Set stauts on status page
+         * \param _status The status code
          */
-        void repair();
+        void setNewStatus(int _status);
 
         /**
-         * \brief Start the update process
+         * \brief Set new label text for status
+         * \param _text The status text
          */
-        void update();
+        void setNewLabelText(QString _text);
 
         /**
-         * \brief Start the uninstall process
+         * \brief Set custom page with id
+         * \param _id The id of the page to display
          */
-        void uninstall();
+        void setCustomContentId(int _id);
 
     private:
 
@@ -132,100 +138,59 @@ class ROAInstaller : public QObject
         /*                                                                            */
         /******************************************************************************/
 
-        /**
-         * \brief Network manager for downloading files
-         */
-        QNetworkAccessManager manager;
-
-        /**
-         * \brief SSL config for custom CAs
-         */
-        QSslConfiguration sslConfig;
-
-        /**
-         * \brief Custom CAs
-         */
-        QList<QSslCertificate> certificates;
-
-        /**
-         * \brief Request for downloading
-         */
-        QNetworkRequest request;
-
-        /**
-         * \brief Installation path
-         */
-        QString installationPath;
-
-        /**
-         * \brief File list to download
-         */
-        QStringList fileList;
-
-        /**
-         * \brief MD5 of files for verifying
-         * \todo This has no use atm
-         */
-        QStringList fileListMD5;
-
-        /**
-         * \brief List of selected components to install
-         */
-        QStringList componentsSelected;
-
-        /**
-         * \brief The user settings
-         */
-        QSettings *userSettings;
-
-        /**
-         * \brief Installation mode
-         */
-        QString installationMode;
-
-        /**
-         * \brief Old installation path
-         */
-        QString installPathOld;
-
-#ifdef Q_OS_LINUX
-        /**
-         * \brief Sound file
-         */
-        //QSound *sound;
-#endif
-
-        QStringList processPaths;
-        QStringList processArgs;
-
 #ifdef Q_OS_WIN
-        WindowsProcess *thread;
+        WindowsProcess *process;
 #endif
 
         /**
-         * \brief Main windows
+         * \brief The ui element
          */
-        RoaMainWidget *mainWidget;
+        Ui::RoaMainWidget *ui;
+
+        /**
+         * \brief Welcome page
+         */
+        ROAPageWelcome *welcome;
+
+        /**
+         * \brief License page
+         */
+        ROAPageLicense *license;
+
+        /**
+         * \brief Components page
+         */
+        ROAPageComponents *components;
+
+        /**
+         * \brief Install page
+         */
+        ROAPageInstall *install;
+
+        /**
+         * \brief Status page
+         */
+        ROAPageStatus *status;
+
+        /**
+         * \brief Finish page
+         */
+        ROAPageFinish *finish;
 
         /**
          * \brief Current page index
          */
-        int curPage;
+        int currentIndex;
 
         /**
-         * \brief Current download phase (0 init, 1 file download)
+         * \brief Flag to check if the winow is moved
          */
-        int downloadPhase;
+        bool moving;
 
         /**
-         * \brief Files left to download
+         * \brief The offset for placing the window centred
          */
-        int filesLeft;
-
-        /**
-         * \brief Block mode, if a condition is to bad some actions are disabled (no installPath = we can't verify anything)
-         */
-        bool blockMode;
+        QPoint offset;
 
         /******************************************************************************/
         /*                                                                            */
@@ -234,88 +199,64 @@ class ROAInstaller : public QObject
         /******************************************************************************/
 
         /**
-         * \brief Remove a dir with all its content
-         *
-         * \param _dir The directory to remove
+         * \brief Set new content page
+         * \param _contentID The page id
          */
-        bool removeDirWithContent(QString _dir);
+        void changeContent(int _contentID);
 
         /**
-         * \brief Remove no longer needed files from previous releases
+         * \brief Hide old content page
+         * \param _contentID The content page to hide
          */
-        void cleanupObsoletFiles();
+        void hideContent(int _contentID);
+
+        /******************************************************************************/
+        /*                                                                            */
+        /*    Events                                                                  */
+        /*                                                                            */
+        /******************************************************************************/
 
         /**
-         * \brief Check if neded dirs are existing, if not create them
+         * \brief Overwrite for the mousePressEvent to move the window
+         * \param event Mouse event
          */
-        void checkDirectories();
+        void mousePressEvent(QMouseEvent *event);
 
         /**
-         * \brief Get file list from remote server
+         * \brief Overwrite for the mouseMoveEvent to move the window
+         * \param event Mouse event
          */
-        void getRemoteFileList();
+        void mouseMoveEvent(QMouseEvent *event);
 
         /**
-         * \brief Install optional components and create shortcuts
+         * \brief Overwrite for the mouseReleaseEvent to move the window
+         * \param event Mouse event
          */
-        void installOptionalComponents();
-
-        /**
-         * \brief Prepare the download
-         */
-        void prepareDownload();
-
-        /**
-         * \brief Download the next file in queue
-         */
-        void getNextFile();
-
-        /**
-         * \brief Check file with md5
-         */
-        bool checkFileWithHash(QString _file, QString _hash);
-
-#ifdef Q_OS_LINUX
-        /**
-         * \brief Create linux shortcuts
-         * \param _path The path where the shortcut is created
-         */
-        void createLinuxShortcut(QString _path);
-#endif
-
-#ifdef Q_OS_WIN32
-        /**
-         * \brief Create windows shortcuts
-         * \param _path The path where the shortcut is created
-         */
-        void createWindowsShortcuts(QString _path);
-
-        void startProcess();
-#endif
+        void mouseReleaseEvent(QMouseEvent *event);
 
     private slots:
 
         /**
-         * \brief Saves the file when download finished
-         * \param reply The data of the downloaded file
+         * \brief Slot when back button was clicked, show previouse page
          */
-        void slot_downloadFinished(QNetworkReply *reply);
+        void on_qpBack_clicked();
 
         /**
-         * \brief Checks for SSL errors
-         * \param reply The reply
-         * \param errors Error list
+         * \brief Slot when next button was clicked, show next page
          */
-        void slot_getSSLError(QNetworkReply* reply, const QList<QSslError> &errors);
+        void on_qpNext_clicked();
 
         /**
-         * \brief Start installation process
+         * \brief Slot when cancel button was clicked, close the installer
          */
-        void startInstallation();
-#ifdef Q_OS_WIN32
-        void slot_processDone();
-#endif
+        void on_qbCancel_clicked();
 
+    signals:
+
+        /**
+         * \brief Signal for installation phase reached
+         */
+        void readyToInstall();
 };
 
-#endif // ROAINSTALLER_H
+#endif // ROAMAINWIDGET_H

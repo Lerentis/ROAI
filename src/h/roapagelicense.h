@@ -108,35 +108,6 @@ class ROAPageLicense : public QWidget
          * \brief Displays the NDA in the selected language earlier in the setup
          */
         void setNDA();
-
-    private slots:
-
-        /**
-         * \brief Shows next page
-         */
-        void on_qpAccept_clicked();
-
-        /**
-         * \brief Shows previous page
-         */
-        void on_qpBack_clicked();
-
-        /**
-         * \brief Cancels the installation
-         */
-        void on_qbCancel_clicked();
-
-    signals:
-
-        /**
-         * \brief Signal for next page
-         */
-        void nextPage();
-
-        /**
-         * \brief Singal for previous page
-         */
-        void previousPage();
 };
 
 #endif // ROAPAGELICENSE_H

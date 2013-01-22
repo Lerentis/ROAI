@@ -6,195 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>651</height>
+    <width>621</width>
+    <height>231</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>770</width>
-    <height>651</height>
+    <width>621</width>
+    <height>231</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>770</width>
-    <height>651</height>
+    <width>621</width>
+    <height>231</height>
    </size>
+  </property>
+  <property name="font">
+   <font>
+    <stylestrategy>PreferAntialias</stylestrategy>
+    <kerning>false</kerning>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="qlTitel">
-   <property name="geometry">
-    <rect>
-     <x>91</x>
-     <y>143</y>
-     <width>441</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Modern Antiqua</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(152, 55, 0);</string>
-   </property>
-   <property name="text">
-    <string>Relics of Annorath - Installation</string>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="gbContent">
-   <property name="geometry">
-    <rect>
-     <x>91</x>
-     <y>220</y>
-     <width>591</width>
-     <height>311</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border: 0px;</string>
-   </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QLabel" name="qlDesc">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>591</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Modern Antiqua</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Relics of Annorath installed successfully!</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="background" native="true">
-   <property name="geometry">
-    <rect>
-     <x>1</x>
-     <y>0</y>
-     <width>769</width>
-     <height>649</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-image: url(:/images/background.png);</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="qlSubtitel">
-   <property name="geometry">
-    <rect>
-     <x>91</x>
-     <y>190</y>
-     <width>601</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Modern Antiqua</family>
-     <pointsize>14</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(0, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>Done!</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::PlainText</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-   </property>
-   <property name="margin">
-    <number>-1</number>
-   </property>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>545</y>
-     <width>74</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="hlButtons">
-    <property name="sizeConstraint">
-     <enum>QLayout::SetNoConstraint</enum>
-    </property>
-    <item>
-     <widget class="QPushButton" name="qbFinish">
-      <property name="minimumSize">
-       <size>
-        <width>72</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="sizeIncrement">
-       <size>
-        <width>72</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Modern Antiqua</family>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
-border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
-      </property>
-      <property name="text">
-       <string>Finish &gt;</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <zorder>background</zorder>
-  <zorder>qlTitel</zorder>
-  <zorder>gbContent</zorder>
-  <zorder>qlSubtitel</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
  </widget>
  <resources/>
  <connections/>

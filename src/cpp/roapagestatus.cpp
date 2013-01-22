@@ -51,18 +51,8 @@ ROAPageStatus::ROAPageStatus(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ROAPageStatus)
 {
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-
     ui->setupUi(this);
-
     ui->qpStatus->setValue(0);
-
-    // Center the whole window
-    QRect desktopRect = QApplication::desktop()->availableGeometry(this);
-    QPoint center = desktopRect.center();
-
-    this->move(center.x()-this->width()*0.5,  center.y()-this->height()*0.5);
 
     // Style progressbar
     this->ui->qpStatus->setStyleSheet("QProgressBar {"

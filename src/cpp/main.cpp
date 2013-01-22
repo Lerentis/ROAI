@@ -39,8 +39,10 @@
 /*    Qt includes                                                             */
 /*                                                                            */
 /******************************************************************************/
+//#include <QtPlugin>
 #include <QApplication>
 #include <QFontDatabase>
+#include <QMessageBox>
 
 /******************************************************************************/
 /*                                                                            */
@@ -62,6 +64,8 @@
 */
 int main(int argc, char *argv[])
 {
+    //Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
+
     QApplication a(argc, argv);
     
     // Set appliaction properties
@@ -78,7 +82,64 @@ int main(int argc, char *argv[])
 
     // Start the installer
     ROAInstaller installer;
-    installer.start();
 
-    return a.exec();
+    /* Decide if we need to do fully installation, updat or deinstallation
+     *
+     * Default (no argument): Full client installation
+     * Arg: update: Update the client installation
+     * Arg: verify: Verify the client installation
+     * Arg: repair: Repair all client files, remove game content
+     * Arg: uninstall: Remove client and game content
+     *
+     */
+
+    QString text(QObject::tr("Valid arguments:\n"
+                    "   Default (no argument) - Full client installation"
+                    "   update - Update the client installation\n"
+                    "   verify - Verify the client installation\n"
+                    "   repair - Try to repair a broken installation\n"
+                    "   uninstall - Remove client and game content- WARNING IF THE DIRECOTRY CONTAINS OTHER FILES THEN FROM ROA, THESE ARE ALSO DELETE!\n"
+                    "   \n"
+                    "Sample: roainstaller update"));
+
+    if(argc == 1)
+    {
+        installer.install();
+
+        return a.exec();
+    }
+    else if(argc == 2)
+    {
+        QString action = argv[1];
+
+        /// \todo Keep the /slient for compatiblity
+        if(action == "update" || action == "/silent")
+        {
+            installer.update();
+            return a.exec();
+        }
+        else if(action == "verify")
+        {
+            installer.verify();
+            return a.exec();
+        }
+        else if(action == "repair")
+        {
+            installer.repair();
+            return a.exec();
+        }
+        else if(action == "uninstall")
+        {
+            installer.uninstall();
+            a.quit();
+        }
+        else
+        {
+            QMessageBox::information(NULL,QObject::tr("Invalid argument"), QObject::tr("Wrong argument found!\n\n") + text);
+        }
+    }
+    else
+    {
+        QMessageBox::information(NULL,QObject::tr("Invalid argument amount"), QObject::tr("To much arguments!\n\n") + text);
+    }
 }

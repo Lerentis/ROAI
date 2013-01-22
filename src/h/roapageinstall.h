@@ -77,7 +77,7 @@ class ROAPageInstall : public QWidget
          * \brief Constructor
          * \param parent The parent
          */
-        explicit ROAPageInstall(QWidget *parent = 0);
+        explicit ROAPageInstall(QWidget *parent = 0, QString _path = "none");
 
         /**
          * \brief Deconstructor
@@ -112,32 +112,6 @@ class ROAPageInstall : public QWidget
          */
         void on_qbBrowse_clicked();
 
-        /**
-         * \brief Shows next page
-         */
-        void on_qpNext_clicked();
-
-        /**
-         * \brief Shows previous page
-         */
-        void on_qpBack_clicked();
-
-        /**
-         * \brief Cancels the installation
-         */
-        void on_qbCancel_clicked();
-
-    signals:
-
-        /**
-         * \brief Signal for next page
-         */
-        void nextPage();
-
-        /**
-         * \brief Singal for previous page
-         */
-        void previousPage();
 };
 
 #endif // ROAPAGEINSTALL_H

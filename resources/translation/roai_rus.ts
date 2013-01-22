@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE" sourcelanguage="en_US">
+<TS version="2.0">
 <context>
     <name>QObject</name>
     <message>
@@ -277,7 +277,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/ui/roapagewelcome.ui" line="56"/>
         <source>Language:</source>
-        <translation>Sprache:</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -290,7 +290,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/ui/roamainwidget.ui" line="59"/>
         <source>Relics of Annorath - Installation</source>
-        <translation type="unfinished">Relics of Annorath - Installation 2</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/ui/roamainwidget.ui" line="83"/>
@@ -301,24 +301,24 @@ p, li { white-space: pre-wrap; }
         <location filename="../../src/ui/roamainwidget.ui" line="128"/>
         <location filename="../../src/cpp/roamainwidget.cpp" line="150"/>
         <source>Relics of Annorath Alpha</source>
-        <translation type="unfinished">Relics of Annorath Alpha</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/ui/roamainwidget.ui" line="168"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/ui/roamainwidget.ui" line="199"/>
         <location filename="../../src/cpp/roamainwidget.cpp" line="155"/>
         <location filename="../../src/cpp/roamainwidget.cpp" line="186"/>
         <source>Next &gt;</source>
-        <translation type="unfinished">Weiter &gt;</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/ui/roamainwidget.ui" line="230"/>
         <source>&lt; Back</source>
-        <translation type="unfinished">&lt; Zurück</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/cpp/roamainwidget.cpp" line="151"/>
@@ -328,7 +328,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/cpp/roamainwidget.cpp" line="166"/>
         <source>Non-disclosure agreement</source>
-        <translation type="unfinished">Geheimhaltungserklärung</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/cpp/roamainwidget.cpp" line="167"/>

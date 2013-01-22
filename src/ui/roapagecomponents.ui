@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>770</width>
-    <height>651</height>
+    <width>621</width>
+    <height>231</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>770</width>
-    <height>651</height>
+    <width>621</width>
+    <height>231</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>770</width>
-    <height>651</height>
+    <width>621</width>
+    <height>231</height>
    </size>
   </property>
   <property name="font">
@@ -33,324 +33,123 @@
   <property name="styleSheet">
    <string notr="true">border: 0px;</string>
   </property>
-  <widget class="QGroupBox" name="gbContent">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>220</y>
-     <width>591</width>
-     <height>311</height>
+     <x>2</x>
+     <y>3</y>
+     <width>444</width>
+     <height>164</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">border: 0px;</string>
-   </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QLabel" name="qlDesc">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>591</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Modern Antiqua</family>
-     </font>
-    </property>
-    <property name="text">
-     <string>Please select the components to install:</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>26</y>
-      <width>381</width>
-      <height>164</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="vlCheckBoxes">
-     <item>
-      <widget class="QCheckBox" name="cbLauncher">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="font">
-        <font>
-         <family>Modern Antiqua</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>The Relics of Annorath Launcher</string>
-       </property>
-       <property name="text">
-        <string>Relics of Annorath Launcher</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="cbDX">
-       <property name="font">
-        <font>
-         <family>Modern Antiqua</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>DirectX Runtime, if unsure please install</string>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>DirectX End-User Runtime</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="cbMSVC">
-       <property name="font">
-        <font>
-         <family>Modern Antiqua</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>MSVC Runtime, if unsure please install</string>
-       </property>
-       <property name="text">
-        <string>Microsoft Visual C++ 2010 Redistributable Package</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="cbOAL">
-       <property name="font">
-        <font>
-         <family>Modern Antiqua</family>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>OpenAL runtime, needed for sound playback</string>
-       </property>
-       <property name="text">
-        <string>OpenAL (Open Audio Library)</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="cbDesktop">
-       <property name="font">
-        <font>
-         <family>Modern Antiqua</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Add desktop shortcut</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="cbMenuEntry">
-       <property name="font">
-        <font>
-         <family>Modern Antiqua</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Add application menu entry</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QLabel" name="qlSubtitel">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>190</y>
-     <width>591</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Modern Antiqua</family>
-     <pointsize>14</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(0, 0, 0);</string>
-   </property>
-   <property name="text">
-    <string>Components for Installation</string>
-   </property>
-   <property name="textFormat">
-    <enum>Qt::PlainText</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-   </property>
-   <property name="margin">
-    <number>-1</number>
-   </property>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>479</x>
-     <y>545</y>
-     <width>231</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="hlButtons">
+   <layout class="QVBoxLayout" name="vlCheckBoxes">
     <item>
-     <widget class="QPushButton" name="qpBack">
+     <widget class="QCheckBox" name="cbLauncher">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="font">
        <font>
         <family>Modern Antiqua</family>
+        <pointsize>12</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <kerning>false</kerning>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
-border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
+      <property name="toolTip">
+       <string>The Relics of Annorath Launcher</string>
       </property>
       <property name="text">
-       <string>&lt; Back</string>
+       <string>Relics of Annorath Launcher</string>
+      </property>
+      <property name="checkable">
+       <bool>true</bool>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="qpNext">
+     <widget class="QCheckBox" name="cbMSVC">
       <property name="font">
        <font>
         <family>Modern Antiqua</family>
+        <pointsize>12</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <kerning>false</kerning>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
-border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
+      <property name="toolTip">
+       <string>MSVC Runtime, if unsure please install</string>
       </property>
       <property name="text">
-       <string>Next &gt;</string>
+       <string>Microsoft Visual C++ 2010 Redistributable Package</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="qbCancel">
+     <widget class="QCheckBox" name="cbOAL">
       <property name="font">
        <font>
         <family>Modern Antiqua</family>
+        <pointsize>12</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <kerning>false</kerning>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
-border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
+      <property name="toolTip">
+       <string>OpenAL runtime, needed for sound playback</string>
       </property>
       <property name="text">
-       <string>Cancel</string>
+       <string>OpenAL (Open Audio Library)</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="cbDesktop">
+      <property name="font">
+       <font>
+        <family>Modern Antiqua</family>
+        <pointsize>12</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <kerning>false</kerning>
+       </font>
+      </property>
+      <property name="text">
+       <string>Add desktop shortcut</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="cbMenuEntry">
+      <property name="font">
+       <font>
+        <family>Modern Antiqua</family>
+        <pointsize>12</pointsize>
+        <stylestrategy>PreferAntialias</stylestrategy>
+        <kerning>false</kerning>
+       </font>
+      </property>
+      <property name="text">
+       <string>Add application menu entry</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="background" native="true">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>769</width>
-     <height>649</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-image: url(:/images/background.png);</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="qlTitel">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>143</y>
-     <width>441</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Modern Antiqua</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(152, 55, 0);</string>
-   </property>
-   <property name="text">
-    <string>Relics of Annorath - Installation</string>
-   </property>
-  </widget>
-  <zorder>background</zorder>
-  <zorder>gbContent</zorder>
-  <zorder>qlSubtitel</zorder>
-  <zorder>horizontalLayoutWidget</zorder>
-  <zorder>qlTitel</zorder>
  </widget>
  <resources/>
  <connections/>
