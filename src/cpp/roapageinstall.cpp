@@ -90,6 +90,11 @@ QString ROAPageInstall::getInstallPath()
     return path;
 }
 
+void ROAPageInstall::retranslate()
+{
+    ui->retranslateUi(this);
+}
+
 /******************************************************************************/
 /*                                                                            */
 /*    Private methods                                                         */
@@ -103,9 +108,15 @@ QString ROAPageInstall::getInstallPath()
 /******************************************************************************/
 
 void ROAPageInstall::on_qbBrowse_clicked()
-{
-    ui->qlPath->setText((QFileDialog::getExistingDirectory(this, tr("Open Directory"),
-                                                    QDir::homePath(),
-                                                    QFileDialog::ShowDirsOnly
-                                                           | QFileDialog::DontResolveSymlinks)) + "/Relics of Annorath");
+{   
+    // Get installation path
+    QString path = (QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                      ui->qlPath->text(),
+                                                      QFileDialog::ShowDirsOnly
+                                                             | QFileDialog::DontResolveSymlinks));
+    // Check if path is empty
+    if(path != "")
+    {
+        ui->qlPath->setText(path + "/Relics of Annorath");
+    }
 }

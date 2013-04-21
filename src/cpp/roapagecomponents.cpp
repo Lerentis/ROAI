@@ -71,6 +71,11 @@ ROAPageComponents::~ROAPageComponents()
 /*                                                                            */
 /******************************************************************************/
 
+void ROAPageComponents::retranslate()
+{
+    ui->retranslateUi(this);
+}
+
 /******************************************************************************/
 /*                                                                            */
 /*    Private methods                                                         */

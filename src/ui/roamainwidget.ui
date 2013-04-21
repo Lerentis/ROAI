@@ -24,6 +24,7 @@
    </property>
    <property name="font">
     <font>
+     <family>Ubuntu</family>
      <pointsize>11</pointsize>
      <stylestrategy>PreferAntialias</stylestrategy>
      <kerning>false</kerning>
@@ -44,7 +45,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Modern Antiqua</family>
+     <family>Ubuntu</family>
      <pointsize>12</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -70,17 +71,18 @@
    </property>
    <property name="font">
     <font>
-     <family>Modern Antiqua</family>
+     <family>Ubuntu</family>
      <pointsize>12</pointsize>
      <stylestrategy>PreferAntialias</stylestrategy>
      <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">border: 0px;</string>
+    <string notr="true">border: 0px;
+color: rgb(0, 0, 0);</string>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;testdfdsfdsfdsfdsfdsf&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -98,6 +100,14 @@
      <height>241</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(0, 0, 0);</string>
+   </property>
   </widget>
   <widget class="QLabel" name="qlSubtitel">
    <property name="geometry">
@@ -110,7 +120,7 @@
    </property>
    <property name="font">
     <font>
-     <family>Modern Antiqua</family>
+     <family>Ubuntu</family>
      <pointsize>16</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -140,15 +150,15 @@
   <widget class="QPushButton" name="qbCancel">
    <property name="geometry">
     <rect>
-     <x>628</x>
+     <x>610</x>
      <y>558</y>
-     <width>81</width>
+     <width>95</width>
      <height>18</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Modern Antiqua</family>
+     <family>Ubuntu</family>
      <pointsize>10</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -171,15 +181,15 @@ color: rgb(0, 0, 0);</string>
   <widget class="QPushButton" name="qpNext">
    <property name="geometry">
     <rect>
-     <x>540</x>
+     <x>510</x>
      <y>558</y>
-     <width>81</width>
+     <width>95</width>
      <height>18</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Modern Antiqua</family>
+     <family>Ubuntu</family>
      <pointsize>10</pointsize>
      <weight>75</weight>
      <bold>true</bold>
@@ -202,15 +212,15 @@ color: rgb(0, 0, 0);</string>
   <widget class="QPushButton" name="qpBack">
    <property name="geometry">
     <rect>
-     <x>450</x>
+     <x>410</x>
      <y>558</y>
-     <width>81</width>
+     <width>95</width>
      <height>18</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Modern Antiqua</family>
+     <family>Ubuntu</family>
      <pointsize>10</pointsize>
      <weight>75</weight>
      <bold>true</bold>

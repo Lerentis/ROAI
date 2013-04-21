@@ -90,6 +90,11 @@ class ROAPageInstall : public QWidget
          */
         QString getInstallPath();
 
+        /**
+         * @brief Retranslate the GUI
+         */
+        void retranslate();
+
     private:
 
         /******************************************************************************/

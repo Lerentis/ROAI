@@ -34,6 +34,11 @@
      <height>311</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu</family>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">border: 0px;</string>
    </property>
@@ -51,7 +56,7 @@
     </property>
     <property name="font">
      <font>
-      <family>Modern Antiqua</family>
+      <family>Ubuntu</family>
       <pointsize>12</pointsize>
       <stylestrategy>PreferAntialias</stylestrategy>
       <kerning>false</kerning>
@@ -73,17 +78,20 @@
       <x>0</x>
       <y>30</y>
       <width>611</width>
-      <height>17</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Modern Antiqua</family>
+      <family>Ubuntu</family>
       <pointsize>12</pointsize>
       <italic>true</italic>
       <stylestrategy>PreferAntialias</stylestrategy>
       <kerning>false</kerning>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string/>

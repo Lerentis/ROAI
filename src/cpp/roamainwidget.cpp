@@ -59,9 +59,15 @@ RoaMainWidget::RoaMainWidget(QString _path, QWidget *parent) :
     // Setup the form
     ui->setupUi(this);
 
+    // Translator
+    translator = new QTranslator();
+
     // Add all pages
     welcome = new ROAPageWelcome(this);
     welcome->hide();
+
+    // Connect language change signal
+    connect(welcome,SIGNAL(signal_languageChanged()),this,SLOT(slot_languageChanged()));
 
     license = new ROAPageLicense(this);
     license->hide();
@@ -259,6 +265,11 @@ void RoaMainWidget::hideContent(int _contentID)
     }
 }
 
+QString RoaMainWidget::getLanguage()
+{
+    return welcome->getLanguage();
+}
+
 /******************************************************************************/
 /*                                                                            */
 /*    Slots                                                                   */
@@ -308,6 +319,18 @@ void RoaMainWidget::on_qbCancel_clicked()
 #endif
         QApplication::exit();
     }
+}
+
+void RoaMainWidget::slot_languageChanged()
+{
+    // Retranslate gui
+    ui->retranslateUi(this);
+
+    components-> retranslate();
+    install->retranslate();
+
+    // Set text again for translation
+    changeContent(0);
 }
 
 /******************************************************************************/

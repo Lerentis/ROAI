@@ -188,18 +188,21 @@ class ROAInstaller : public QObject
          */
         QString installPathOld;
 
-#ifdef Q_OS_LINUX
-        /**
-         * \brief Sound file
-         */
-        //QSound *sound;
-#endif
-
-        QStringList processPaths;
-        QStringList processArgs;
-
 #ifdef Q_OS_WIN
+        /**
+         * @brief Windows process instance
+         */
         WindowsProcess *thread;
+
+        /**
+         * @brief Path to process binary
+         */
+        QStringList processPaths;
+
+        /**
+         * @brief Process arguments
+         */
+        QStringList processArgs;
 #endif
 
         /**
@@ -290,6 +293,9 @@ class ROAInstaller : public QObject
          */
         void createWindowsShortcuts(QString _path);
 
+        /**
+         * @brief Start process
+         */
         void startProcess();
 #endif
 
@@ -312,7 +318,11 @@ class ROAInstaller : public QObject
          * \brief Start installation process
          */
         void startInstallation();
+
 #ifdef Q_OS_WIN32
+        /**
+         * @brief Slot when process is done
+         */
         void slot_processDone();
 #endif
 

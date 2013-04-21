@@ -287,7 +287,7 @@ void ROAInstaller::uninstall()
             }
             else
             {
-                QMessageBox::warning(NULL,tr("Client uninstalled failed"), tr("Client uninstalled failed! Please remove left files per hand!"));
+                QMessageBox::warning(NULL,tr("Client uninstalled failed"), tr("Client uninstallation failed! Please remove left files per hand!"));
             }
         }
     }
@@ -341,8 +341,7 @@ void ROAInstaller::cleanupObsoletFiles()
     QFile::remove(installPathOld + "ROALauncher.sh");
 #endif
 
-#ifdef Q_OS_WIN32
-#ifdef Q_OS_WIN64
+#ifdef Q_OS_WIN
     QFile::remove(installPathOld + "annorath.ico");
     QFile::remove(installPathOld + "install.ico");
     QFile::remove(installPathOld + "libeay32.dll");
@@ -360,8 +359,6 @@ void ROAInstaller::cleanupObsoletFiles()
     QFile::remove(installPathOld + "unins000.exe");
     QFile::remove(installPathOld + "uninstall.ico");
     QFile::remove(installPathOld + "url.ico");
-#else
-#endif
 #endif
 }
 
@@ -408,17 +405,17 @@ void ROAInstaller::getRemoteFileList()
 
 #ifdef Q_OS_LINUX
 #ifdef __x86_64__
-    request.setUrl(QUrl("https://launcher.annorath-game.com/data/linux_x86_64/launcher/linux_x86_64.txt"));
+    request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86_64/launcher/linux_x86_64.txt"));
 #else
-    request.setUrl(QUrl("https://launcher.annorath-game.com/data/linux_x86/launcher/linux_x86.txt"));
+    request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86/launcher/linux_x86.txt"));
 #endif
 #endif
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
 #ifdef Q_OS_WIN64
-    request.setUrl(QUrl("https://launcher.annorath-game.com/data/windows_x86_64/launcher/windows_x86_64.txt"));
+    request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86_64/launcher/windows_x86_64.txt"));
 #else
-    request.setUrl(QUrl("https://launcher.annorath-game.com/data/windows_x86/launcher/windows_x86.txt"));
+    request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86/launcher/windows_x86.txt"));
 #endif
 #endif
 
@@ -431,7 +428,7 @@ void ROAInstaller::startInstallation()
     // Set installation path
     installationPath = mainWidget->getInstallPath();
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
     installationPath = QDir::fromNativeSeparators(installationPath);
 #endif
 
@@ -526,17 +523,17 @@ void ROAInstaller::getNextFile()
         // Set URL and start download
 #ifdef Q_OS_LINUX
 #ifdef __x86_64__
-        request.setUrl(QUrl("https://launcher.annorath-game.com/data/linux_x86_64/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86_64/" + fileList.at(filesLeft-1)));
 #else
-        request.setUrl(QUrl("https://launcher.annorath-game.com/data/linux_x86/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86/" + fileList.at(filesLeft-1)));
 #endif
 #endif
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
 #ifdef Q_OS_WIN64
-        request.setUrl(QUrl("https://launcher.annorath-game.com/data/windows_x86_64/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86_64/" + fileList.at(filesLeft-1)));
 #else
-        request.setUrl(QUrl("https://launcher.annorath-game.com/data/windows_x86/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86/" + fileList.at(filesLeft-1)));
 #endif
 #endif
         manager.get(request);
@@ -556,9 +553,12 @@ void ROAInstaller::getNextFile()
     {
         if(installationMode == "default")
         {
+            // Set language
+            userSettings->setValue("language", mainWidget->getLanguage());
+
             // Set status to 100
             mainWidget->setNewStatus(100);
-            mainWidget->setNewLabelText("Installing additional software...");
+            mainWidget->setNewLabelText(tr("Installing additional software..."));
 
             // Install components and creat shortcuts
             installOptionalComponents();
@@ -576,7 +576,7 @@ void ROAInstaller::getNextFile()
             createLinuxShortcut(QDir::homePath() + "/Desktop/Relics of Annorath.desktop");
 #endif
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
             createWindowsShortcuts(QString(qgetenv("APPDATA")) + "/Microsoft/Windows/Start Menu/Programs/Relics of Annorath.lnk");
             createWindowsShortcuts(QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0) + "/Relics of Annorath.lnk");
 #endif
@@ -613,11 +613,13 @@ void ROAInstaller::installOptionalComponents()
     }
 #endif
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
 
     if(componentsSelected.at(1).toInt())
     {
-        processPaths.append(installationPath + "launcher/downloads/vcredist_x64.exe");
+        processPaths.append(installationPath + "launcher/downloads/vcredist2010_x64.exe");
+        processArgs.append(" /q");
+        processPaths.append(installationPath + "launcher/downloads/vcredist2012_x64.exe");
         processArgs.append(" /q");
     }
 
@@ -681,7 +683,7 @@ void ROAInstaller::createLinuxShortcut(QString _path)
 
 #endif
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
 void ROAInstaller::createWindowsShortcuts(QString _path)
 {
     // Fastes and easiest way to do this for windows system - windows api sucks...
@@ -762,7 +764,7 @@ void ROAInstaller::slot_getSSLError(QNetworkReply* reply, const QList<QSslError>
     }
 }
 
-#ifdef Q_OS_WIN32
+#ifdef Q_OS_WIN
 void ROAInstaller::slot_processDone()
 {
     if(processPaths.size() > 0)

@@ -84,6 +84,12 @@ class ROAPageWelcome : public QWidget
          */
         ~ROAPageWelcome();
 
+        /**
+         * @brief Get language
+         * @return The language as string
+         */
+        QString getLanguage();
+
     private:
 
         /******************************************************************************/
@@ -102,6 +108,11 @@ class ROAPageWelcome : public QWidget
          */
         QTranslator *translator;
 
+        /**
+         * @brief Language
+         */
+        QString language;
+
         /******************************************************************************/
         /*                                                                            */
         /*    Methods                                                                 */
@@ -116,6 +127,13 @@ class ROAPageWelcome : public QWidget
          * \param _index The language index
          */
         void on_qcLanguage_currentIndexChanged(int _index);
+
+    signals:
+
+        /**
+         * @brief Signal when laguage was changed
+         */
+        void signal_languageChanged();
 };
 
 #endif // ROAPAGEWELCOME_H

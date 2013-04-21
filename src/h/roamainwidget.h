@@ -130,6 +130,12 @@ class RoaMainWidget : public QWidget
          */
         void setCustomContentId(int _id);
 
+        /**
+         * @brief Get language
+         * @return The language as string
+         */
+        QString getLanguage();
+
     private:
 
         /******************************************************************************/
@@ -139,6 +145,9 @@ class RoaMainWidget : public QWidget
         /******************************************************************************/
 
 #ifdef Q_OS_WIN
+        /**
+         * @brief Windows process
+         */
         WindowsProcess *process;
 #endif
 
@@ -191,6 +200,11 @@ class RoaMainWidget : public QWidget
          * \brief The offset for placing the window centred
          */
         QPoint offset;
+
+        /**
+         * \brief Application translator
+         */
+        QTranslator *translator;
 
         /******************************************************************************/
         /*                                                                            */
@@ -250,6 +264,11 @@ class RoaMainWidget : public QWidget
          * \brief Slot when cancel button was clicked, close the installer
          */
         void on_qbCancel_clicked();
+
+        /**
+         * \brief Slot when language was changed
+         */
+        void slot_languageChanged();
 
     signals:
 

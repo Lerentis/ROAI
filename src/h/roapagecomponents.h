@@ -89,6 +89,11 @@ class ROAPageComponents : public QWidget
          */
         QStringList getSelectedComponents();
 
+        /**
+         * @brief Retranslate the gui
+         */
+        void retranslate();
+
     private:
 
         /******************************************************************************/

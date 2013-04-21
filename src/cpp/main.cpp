@@ -77,8 +77,16 @@ int main(int argc, char *argv[])
     a.setOrganizationName("QuantumBytes inc.");
     a.setOrganizationDomain("quantum-bytes.com");
 
-    // Add custom font
-    QFontDatabase::addApplicationFont(":/font/ModernAntiqua.ttf");
+    // Add custom fonts
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-B.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-BI.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-C.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-L.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-LI.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-M.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-MI.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-R.ttf");
+    QFontDatabase::addApplicationFont(":/font/Ubuntu-RI.ttf");
 
     // Start the installer
     ROAInstaller installer;

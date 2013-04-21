@@ -22,7 +22,7 @@
  *
  * \brief       Handels the update process for the Installer and related files
  *
- * \file    	roapagewelcome.h
+ * \file    	roapagewelcome.cpp
  *
  * \note
  *
@@ -66,12 +66,13 @@ ROAPageWelcome::ROAPageWelcome(QWidget *parent) :
 
     // Add values to the boxes for language seleciton
     ui->qcLanguage->addItem( "English", "english" );
+    ui->qcLanguage->addItem( "Español", "spanish" );
     ui->qcLanguage->addItem( "Deutsch", "german" );
     ui->qcLanguage->addItem( "Français", "french" );
     ui->qcLanguage->addItem( "Italiano", "italian" );
-    ui->qcLanguage->addItem( "Español", "spain" );
-    ui->qcLanguage->addItem( "Pусский", "russian" );
+    ui->qcLanguage->addItem( "Polski", "polish" );
     ui->qcLanguage->addItem( "Português", "portuguese" );
+    ui->qcLanguage->addItem( "Svenska", "swedish" );
     ui->qcLanguage->addItem( "ελληνικά", "greek" );
 }
 
@@ -85,6 +86,11 @@ ROAPageWelcome::~ROAPageWelcome()
 /*    Public methods                                                          */
 /*                                                                            */
 /******************************************************************************/
+
+QString ROAPageWelcome::getLanguage()
+{
+    return language;
+}
 
 /******************************************************************************/
 /*                                                                            */
@@ -112,27 +118,24 @@ void ROAPageWelcome::changeEvent(QEvent *_event)
 
 void ROAPageWelcome::on_qcLanguage_currentIndexChanged(int _index)
 {
-    // Load new translation
-    QString trans;
+    // Retranslate the whole ui while language changed
+    QApplication::removeTranslator(translator);
 
-    switch(_index)
+    if(!translator->load(":/translations/roai_" + ui->qcLanguage->itemData(_index).toString()))
     {
-        case 0:
-            trans = "roai_eng";
-            break;
-        case 1:
-            trans = "roai_ger";
-            break;
-        case 2:
-            trans = "roai_fra";
-            break;
-        case 3:
-            trans = "roai_spa";
-            break;
-        case 4:
-            trans = "roai_ita";
-            break;
-        default:
-            trans = "roai_eng";
+        /// \todo Cleanup
+        //qDebug() << "Language not found";
     }
+
+    // Set language
+    language = ui->qcLanguage->itemData(_index).toString();
+
+    // Install translator
+    QApplication::installTranslator(translator);
+
+    // Retranslate gui
+    ui->retranslateUi(this);
+
+    // Send signal
+    emit signal_languageChanged();
 }
