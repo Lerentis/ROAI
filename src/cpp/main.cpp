@@ -50,6 +50,7 @@
 /*                                                                            */
 /******************************************************************************/
 #include "../h/roainstaller.h"
+#include "../h/logging.h"
 
 /**
  * \brief The main loop-

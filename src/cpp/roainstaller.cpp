@@ -52,6 +52,8 @@ ROAInstaller::ROAInstaller(QObject *parent) :
     // Set download phase for later
     downloadPhase = 0;
 
+    filesLeft = 0;
+
     // Create settings object with old name
     userSettings = new QSettings(QSettings::IniFormat, QSettings::UserScope, "Quantum Bytes GmbH", "Relics of Annorath");
     //userSettings->beginGroup("Relics of Annorath");
@@ -137,14 +139,6 @@ void ROAInstaller::install()
     mainWidget->show();
 
     connect(mainWidget,SIGNAL(readyToInstall()),this,SLOT(startInstallation()));
-
-#ifdef Q_OS_LINUX
-    // Play sound
-    //sound = new QSound( ":/sounds/CallForHeroes.wav" );
-    //sound->setLoops(-1);
-    //sound->play();
-#endif
-
 }
 
 void ROAInstaller::update()
@@ -158,6 +152,19 @@ void ROAInstaller::update()
         mainWidget = new RoaMainWidget(installationPath);
         mainWidget->setCustomContentId(4);
         mainWidget->show();
+
+        /// \todo This is only for this release! Remove this in a next version
+#ifdef Q_OS_LINUX
+        removeDirWithContent(installationPath + "launcher/bin/imageformats");
+        removeDirWithContent(installationPath + "launcher/bin/platforms");
+        removeDirWithContent(installationPath + "launcher/imageformats");
+        removeDirWithContent(installationPath + "launcher/platforms");
+        removeDirWithContent(installationPath + "launcher/lib");
+        removeDirWithContent(installationPath + "game");
+#else
+#endif
+
+        Logging::init(installationPath);
 
         // Check for needed dirs and create them if needed
         checkDirectories();
@@ -228,7 +235,7 @@ void ROAInstaller::repair()
         QStringList pathParts = expectedPath.split("/");
         expectedPath = "";
 
-        /* The installer binary is place in <roa dir>/launcher/bin/roainstaller
+        /* The installer binary is place in <roa dir>/launcher/download/roainstaller
          * We get the way back to the <roa dir> this means we substracting 2 levels
          * But first we verifing the top two level folders
          */
@@ -281,14 +288,24 @@ void ROAInstaller::uninstall()
         }
         else
         {
-            if(removeDirWithContent(installationPath ))
+            if(removeDirWithContent(installationPath))
             {
                 QMessageBox::information(NULL,tr("Client uninstalled successfully"), tr("Client uninstalled successfully!"));
             }
             else
             {
-                QMessageBox::warning(NULL,tr("Client uninstalled failed"), tr("Client uninstallation failed! Please remove left files per hand!"));
+                QMessageBox::warning(NULL,tr("Client uninstalled failed"), tr("Client uninstalled, please restart your computer!"));
+#ifdef Q_OS_WIN
+                MoveFileEx(reinterpret_cast<const wchar_t *>(QString(installationPath.replace('/','\\') + "\\launcher\\downloads\\installer.exe").utf16()), NULL, MOVEFILE_DELAY_UNTIL_REBOOT);
+                MoveFileEx(reinterpret_cast<const wchar_t *>(QString(installationPath.replace('/','\\') + "\\launcher\\downloads\\").utf16()), NULL, MOVEFILE_DELAY_UNTIL_REBOOT);
+                MoveFileEx(reinterpret_cast<const wchar_t *>(QString(installationPath.replace('/','\\') + "\\launcher\\").utf16()), NULL, MOVEFILE_DELAY_UNTIL_REBOOT);
+                MoveFileEx(reinterpret_cast<const wchar_t *>(QString(installationPath.replace('/','\\')).utf16()), NULL, MOVEFILE_DELAY_UNTIL_REBOOT);
+#endif
             }
+#ifdef Q_OS_WIN
+            QSettings reg("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall", QSettings::NativeFormat);
+            reg.remove("Relics Of Annorath/DisplayName");
+#endif
         }
     }
     else
@@ -307,6 +324,7 @@ bool ROAInstaller::removeDirWithContent(QString _dir)
 {
     // Thanks to John for the code part -> http://john.nachtimwald.com/2010/06/08/qt-remove-directory-and-its-contents/
     bool result = true;
+    bool error = false;
 
     QDir dir(_dir);
 
@@ -324,14 +342,14 @@ bool ROAInstaller::removeDirWithContent(QString _dir)
             }
 
             if (!result) {
-                return result;
+                error = true;
             }
         }
 
         result = dir.rmdir(_dir);
     }
 
-    return result;
+    return error;
 }
 
 void ROAInstaller::cleanupObsoletFiles()
@@ -370,15 +388,17 @@ void ROAInstaller::checkDirectories()
          << installationPath + "game/data"
          << installationPath + "game/lib"
          << installationPath + "launcher"
-         << installationPath + "launcher/platforms"
-        #ifdef Q_OS_LINUX
+#ifdef Q_OS_LINUX
          << installationPath + "launcher/bin"
          << installationPath + "launcher/lib"
          << installationPath + "launcher/bin/platforms"
          << installationPath + "launcher/bin/imageformats"
-        #endif
-         << installationPath + "launcher/downloads"
+#endif
+#ifdef Q_OS_WIN
+         << installationPath + "launcher/platforms"
          << installationPath + "launcher/imageformats"
+#endif
+         << installationPath + "launcher/downloads"
          << installationPath + "launcher/sounds";
 
     for(int i = 0; i < dirs.size(); i++)
@@ -391,6 +411,8 @@ void ROAInstaller::checkDirectories()
 
 void ROAInstaller::getRemoteFileList()
 {
+    Logging::addEntry(LOG_LEVEL_INF, "Get remote file list", FUNCTION_NAME);
+
     // Prepare downloading over ssl
     certificates.append(QSslCertificate::fromPath(":/certs/class2.pem"));
     certificates.append(QSslCertificate::fromPath(":/certs/ca.pem"));
@@ -405,17 +427,17 @@ void ROAInstaller::getRemoteFileList()
 
 #ifdef Q_OS_LINUX
 #ifdef __x86_64__
-    request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86_64/launcher/linux_x86_64.txt"));
+    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x64/client.txt")));
 #else
-    request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86/launcher/linux_x86.txt"));
+    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x86/client.txt")));
 #endif
 #endif
 
 #ifdef Q_OS_WIN
 #ifdef Q_OS_WIN64
-    request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86_64/launcher/windows_x86_64.txt"));
+    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x64/client.txt")));
 #else
-    request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86/launcher/windows_x86.txt"));
+    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x86/client.txt")));
 #endif
 #endif
 
@@ -447,12 +469,19 @@ void ROAInstaller::startInstallation()
     // Check for needed dirs and create them if needed
     checkDirectories();
 
+    // Start logging
+    Logging::init(installationPath);
+    Logging::addEntry(LOG_LEVEL_INF, "Installation mode: " + installationMode, FUNCTION_NAME);
+    Logging::addEntry(LOG_LEVEL_INF, "Installation path: " + installationPath, FUNCTION_NAME);
+
     // Get file list for verification
     getRemoteFileList();
 }
 
 void ROAInstaller::prepareDownload()
 {
+    Logging::addEntry(LOG_LEVEL_INF, "Opening file list", FUNCTION_NAME);
+
     // Open file and read it
     QFile file(installationPath + "launcher/downloads/files.txt");
 
@@ -464,18 +493,30 @@ void ROAInstaller::prepareDownload()
         {
             QStringList tmp = QString(in.readLine()).split(";");
 
+            Logging::addEntry(LOG_LEVEL_INF, "Found file: " + tmp.join(";"), FUNCTION_NAME);
+
             // Check if we got valid input
             if(tmp.size() == 2)
             {
                 // Check for correct files, do not download not needed data
                 if(!checkFileWithHash(tmp.at(0), tmp.at(1)))
                 {
+                    Logging::addEntry(LOG_LEVEL_INF, "File not found or invalid hash, adding to download queue", FUNCTION_NAME);
+
                     // Save values
                     fileList.append(tmp.at(0));
                     fileListMD5.append(tmp.at(1));
                 }
             }
+            else
+            {
+                Logging::addEntry(LOG_LEVEL_ERR, "Invalid entry in file list", FUNCTION_NAME);
+            }
         }
+    }
+    else
+    {
+        Logging::addEntry(LOG_LEVEL_ERR, "Could not open file list", FUNCTION_NAME);
     }
 
     // Close file
@@ -490,6 +531,8 @@ void ROAInstaller::prepareDownload()
 
 bool ROAInstaller::checkFileWithHash(QString _file, QString _hash)
 {
+    Logging::addEntry(LOG_LEVEL_INF, "Checking file: " + _file, FUNCTION_NAME);
+
     QFile file(installationPath + _file);
 
     if(file.open(QIODevice::ReadOnly))
@@ -503,15 +546,18 @@ bool ROAInstaller::checkFileWithHash(QString _file, QString _hash)
         // Compare
         if(QString(hash.toHex()) == _hash)
         {
+            Logging::addEntry(LOG_LEVEL_INF, "File found and hash successfully validated", FUNCTION_NAME);
             return true;
         }
         else
         {
+            Logging::addEntry(LOG_LEVEL_INF, "Invalid hash, updating...", FUNCTION_NAME);
             return false;
         }
     }
     else
     {
+        Logging::addEntry(LOG_LEVEL_INF, "File not found", FUNCTION_NAME);
         return false;
     }
 }
@@ -520,20 +566,23 @@ void ROAInstaller::getNextFile()
 {
     if(filesLeft > 0)
     {
+        Logging::addEntry(LOG_LEVEL_INF, "Files left: " + QString::number(filesLeft), FUNCTION_NAME);
+        Logging::addEntry(LOG_LEVEL_INF, "Set file to: " + fileList.at(filesLeft-1), FUNCTION_NAME);
+
         // Set URL and start download
 #ifdef Q_OS_LINUX
 #ifdef __x86_64__
-        request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86_64/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x64/") + fileList.at(filesLeft-1)));
 #else
-        request.setUrl(QUrl("https://launcher.annorath-game.com/release/linux_x86/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x86/") + fileList.at(filesLeft-1)));
 #endif
 #endif
 
 #ifdef Q_OS_WIN
 #ifdef Q_OS_WIN64
-        request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86_64/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x64/") + fileList.at(filesLeft-1)));
 #else
-        request.setUrl(QUrl("https://launcher.annorath-game.com/release/windows_x86/" + fileList.at(filesLeft-1)));
+        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x86/") + fileList.at(filesLeft-1)));
 #endif
 #endif
         manager.get(request);
@@ -551,10 +600,14 @@ void ROAInstaller::getNextFile()
     }
     else
     {
+        Logging::addEntry(LOG_LEVEL_INF, "Download complete", FUNCTION_NAME);
+
         if(installationMode == "default")
         {
             // Set language
             userSettings->setValue("language", mainWidget->getLanguage());
+
+            Logging::addEntry(LOG_LEVEL_INF, "Setting language to " + mainWidget->getLanguage(), FUNCTION_NAME);
 
             // Set status to 100
             mainWidget->setNewStatus(100);
@@ -570,16 +623,6 @@ void ROAInstaller::getNextFile()
         }
         else if(installationMode == "update")
         {
-            /// \todo relaunch the launcher
-#ifdef Q_OS_LINUX
-            createLinuxShortcut(QDir::homePath() + "/.local/share/applications/Relics of Annorath.desktop");
-            createLinuxShortcut(QDir::homePath() + "/Desktop/Relics of Annorath.desktop");
-#endif
-
-#ifdef Q_OS_WIN
-            createWindowsShortcuts(QString(qgetenv("APPDATA")) + "/Microsoft/Windows/Start Menu/Programs/Relics of Annorath.lnk");
-            createWindowsShortcuts(QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0) + "/Relics of Annorath.lnk");
-#endif
             mainWidget->setCustomContentId(5);
         }
         else if(installationMode == "verify")
@@ -601,15 +644,19 @@ void ROAInstaller::getNextFile()
 void ROAInstaller::installOptionalComponents()
 {
 #ifdef Q_OS_LINUX
+    Logging::addEntry(LOG_LEVEL_INF, "Create shortcuts", FUNCTION_NAME);
+
+    // Create shortcut for displaying right icon in gnome-shell
+    createLinuxShortcut(QDir::homePath() + "/.local/share/applications/Relics of Annorath Game.desktop", "game/bin/roa", false);
 
     if(componentsSelected.at(3).toInt())
     {
-        createLinuxShortcut(QDir::homePath() + "/.local/share/applications/Relics of Annorath.desktop");
+        createLinuxShortcut(QDir::homePath() + "/.local/share/applications/Relics of Annorath.desktop", "launcher/bin/ROALauncher.sh", true);
     }
 
     if(componentsSelected.at(4).toInt())
     {
-        createLinuxShortcut(QDir::homePath() + "/Desktop/Relics of Annorath.desktop");
+        createLinuxShortcut(QDir::homePath() + "/Desktop/Relics of Annorath.desktop", "launcher/bin/ROALauncher.sh", true);
     }
 #endif
 
@@ -617,6 +664,8 @@ void ROAInstaller::installOptionalComponents()
 
     if(componentsSelected.at(1).toInt())
     {
+        Logging::addEntry(LOG_LEVEL_INF, "Prepare installation of MSVC", FUNCTION_NAME);
+
         processPaths.append(installationPath + "launcher/downloads/vcredist2010_x64.exe");
         processArgs.append(" /q");
         processPaths.append(installationPath + "launcher/downloads/vcredist2012_x64.exe");
@@ -625,11 +674,14 @@ void ROAInstaller::installOptionalComponents()
 
     if(componentsSelected.at(2).toInt())
     {
+        Logging::addEntry(LOG_LEVEL_INF, "Prepare installation of OAL", FUNCTION_NAME);
+
         processPaths.append(installationPath + "launcher/downloads/oalinst.exe");
         processArgs.append(" /silent");
     }
 
     thread = new WindowsProcess();
+    connect(thread, SIGNAL(finished()),SLOT(slot_processDone()));
     startProcess();
 
 #endif
@@ -638,6 +690,8 @@ void ROAInstaller::installOptionalComponents()
 #ifdef Q_OS_WIN
 void ROAInstaller::startProcess()
 {
+    Logging::addEntry(LOG_LEVEL_INF, "Start installation processes", FUNCTION_NAME);
+
     if(processPaths.size() > 0)
     {
         // Feed thread
@@ -647,20 +701,21 @@ void ROAInstaller::startProcess()
         processPaths.removeAt(0);
         processArgs.removeAt(0);
 
-        connect(thread, SIGNAL(finished()),SLOT(slot_processDone()));
-
         thread->start();
     }
     else
     {
+        Logging::addEntry(LOG_LEVEL_ERR, "This should never be called", FUNCTION_NAME);
         slot_processDone();
     }
 }
 #endif
 
 #ifdef Q_OS_LINUX
-void ROAInstaller::createLinuxShortcut(QString _path)
+void ROAInstaller::createLinuxShortcut(QString _path, QString _binaryName, bool _display)
 {
+    Logging::addEntry(LOG_LEVEL_INF, "Create shortcuts", FUNCTION_NAME);
+
     // Create menu entry
     QFile menuEntry(_path);
     menuEntry.open(QIODevice::WriteOnly | QIODevice::Text);
@@ -672,22 +727,75 @@ void ROAInstaller::createLinuxShortcut(QString _path)
     out << "Version=1.0\n";
     out << "Type=Application\n";
     out << "Terminal=false\n";
-    out << "Exec=\"" + installationPath + "launcher/bin/ROALauncher.sh" + "\"\n";
+    out << "Exec=\"" + installationPath +  _binaryName + "\"\n";
     out << "Name=Relics of Annorath\n";
     out << "Icon=" + installationPath + "launcher/roa.ico" + "\n";
+
+    // Check if we need to display it
+    if(!_display)
+    {
+        out << "NoDisplay=true\n";
+    }
 
     menuEntry.setPermissions(QFile::ExeUser | QFile::ExeGroup | QFile::ExeOwner | QFile::WriteUser | QFile::WriteGroup | QFile::WriteOwner | QFile::ReadGroup | QFile::ReadOwner | QFile::ReadUser);
 
     menuEntry.close();
 }
-
 #endif
 
 #ifdef Q_OS_WIN
 void ROAInstaller::createWindowsShortcuts(QString _path)
 {
-    // Fastes and easiest way to do this for windows system - windows api sucks...
-    QFile::link(installationPath + "launcher/ROALauncher.exe", _path );
+    // As we know it from the windows api, nothing is easy...
+    HRESULT hres;
+    IShellLink* psl;
+
+    // Do some casting (LPCWSTR is a bad joke isn't?)
+    LPCWSTR launcherFile = reinterpret_cast<const WCHAR*>(QString(installationPath.replace('/','\\') + "launcher\\ROALauncher.exe").utf16());
+    LPCSTR path = _path.replace('/', '\\').toStdString().c_str();
+
+    // Create instance
+    hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
+
+    // Check if it worked
+    if (SUCCEEDED(hres))
+    {
+        IPersistFile* ppf;
+
+        // Set the path to the shortcut target and add the description.
+        psl->SetPath( launcherFile );
+        psl->SetDescription(reinterpret_cast<const WCHAR*>(QString("Relics of Annorath launcher").utf16()));
+
+        // Query IShellLink for the IPersistFile interface, used for saving the
+        // shortcut in persistent storage.
+        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf);
+
+        // Check again
+        if (SUCCEEDED(hres))
+        {
+            // I love the windows API, not
+            WCHAR wsz[MAX_PATH];
+
+            // Ensure that the string is Unicode.
+            MultiByteToWideChar(CP_ACP, 0, path, -1, wsz, MAX_PATH);
+
+            // Save the link by calling IPersistFile::Save.
+            hres = ppf->Save(wsz, TRUE);
+            ppf->Release();
+        }
+        else
+        {
+            Logging::addEntry(LOG_LEVEL_ERR, "Query interface failed", FUNCTION_NAME);
+        }
+
+        psl->Release();
+    }
+    else
+    {
+        Logging::addEntry(LOG_LEVEL_ERR, "CoCreateInstance failed", FUNCTION_NAME);
+    }
+
+    // We are done, WOW!
 }
 #endif
 
@@ -704,43 +812,62 @@ void ROAInstaller::slot_downloadFinished(QNetworkReply *reply)
     switch(downloadPhase)
     {
         case 0:
+            Logging::addEntry(LOG_LEVEL_INF, "Saving file list", FUNCTION_NAME);
             fileName = "launcher/downloads/files.txt";
             break;
         case 1:
+            Logging::addEntry(LOG_LEVEL_INF, "Saving file " + fileList.at(filesLeft), FUNCTION_NAME);
             fileName = fileList.at(filesLeft);
             break;
     }
 
     // Open the file to write to
     QFile file(installationPath + fileName);
-    file.open(QIODevice::WriteOnly);
 
-    // Open a stream to write into the file
-    QDataStream stream(&file);
+    if(file.open(QIODevice::WriteOnly))
+    {
+        // Open a stream to write into the file
+        QDataStream stream(&file);
 
-    // Get the size of the torrent
-    int size = reply->size();
+        // Get the size of the torrent
+        int size = reply->size();
 
-    // Get the data of the torrent
-    QByteArray temp = reply->readAll();
+        // Get the data of the torrent
+        QByteArray temp = reply->readAll();
 
-    // Write the file
-    stream.writeRawData(temp, size);
+        // Write the file
+        stream.writeRawData(temp, size);
 
-    // Set exe permissions
-    file.setPermissions(QFile::ExeUser | QFile::ExeGroup | QFile::ExeOwner | QFile::WriteUser | QFile::WriteGroup | QFile::WriteOwner | QFile::ReadGroup | QFile::ReadOwner | QFile::ReadUser);
+        // Set exe permissions
+        file.setPermissions(QFile::ExeUser | QFile::ExeGroup | QFile::ExeOwner | QFile::WriteUser | QFile::WriteGroup | QFile::WriteOwner | QFile::ReadGroup | QFile::ReadOwner | QFile::ReadUser);
 
-    // Close the file
-    file.close();
+        // Close the file
+        file.close();
+    }
+    else
+    {
+        Logging::addEntry(LOG_LEVEL_ERR, "Could not open file for writting", FUNCTION_NAME);
+    }
 
     // If phase 0 take future steps
     switch(downloadPhase)
     {
         case 0:
+            Logging::addEntry(LOG_LEVEL_INF, "Prepearing download of launcher files", FUNCTION_NAME);
+
             prepareDownload();
             downloadPhase = 1;
             break;
         case 1:
+            // Check if file is good
+            if(!checkFileWithHash(fileList.at(filesLeft), fileListMD5.at(filesLeft)))
+            {
+                Logging::addEntry(LOG_LEVEL_INF, "Corrupt file, readownloading it", FUNCTION_NAME);
+
+                // Redownloads the file at next try
+                filesLeft += 1;
+            }
+
             getNextFile();
             break;
     }
@@ -752,6 +879,8 @@ void ROAInstaller::slot_getSSLError(QNetworkReply* reply, const QList<QSslError>
 
     if(sslError.error() == 11 )
     {
+        Logging::addEntry(LOG_LEVEL_INF, "SSL error detected: " + reply->errorString(), FUNCTION_NAME);
+
         if(installationMode == "default")
         {
             //reply->ignoreSslErrors();
@@ -767,20 +896,49 @@ void ROAInstaller::slot_getSSLError(QNetworkReply* reply, const QList<QSslError>
 #ifdef Q_OS_WIN
 void ROAInstaller::slot_processDone()
 {
+    Logging::addEntry(LOG_LEVEL_INF, "Installation process done", FUNCTION_NAME);
+
     if(processPaths.size() > 0)
     {
+        Logging::addEntry(LOG_LEVEL_INF, "Starting next process (" + QString::number(processPaths.size()) + ")", FUNCTION_NAME);
         startProcess();
     }
     else
     {
+        Logging::addEntry(LOG_LEVEL_INF, "Setting uninstall information", FUNCTION_NAME);
+
+        // Set uninstall entry into reg
+        QSettings reg("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall", QSettings::NativeFormat);
+        reg.setValue("Relics Of Annorath/DisplayName", "Relics Of Annorath");
+        reg.setValue("Relics Of Annorath/DisplayVersion", "5.0");
+        reg.setValue("Relics Of Annorath/InstallLocation", installationPath.replace('/','\\'));
+        reg.setValue("Relics Of Annorath/ModifyPath", installationPath.replace('/','\\') + "launcher\\downloads\\installer.exe repair");
+        reg.setValue("Relics Of Annorath/NoModify", 0);
+        reg.setValue("Relics Of Annorath/NoRepair", 1);
+        reg.setValue("Relics Of Annorath/UninstallString", installationPath.replace('/','\\') + "launcher\\downloads\\installer.exe uninstall");
+        reg.setValue("Relics Of Annorath/Publisher", "QuantumBytes inc.");
+        reg.setValue("Relics Of Annorath/Comments", "Relics of Annorath Launcher");
+        reg.setValue("Relics Of Annorath/EstimatedSize", 2000000);
+        reg.setValue("Relics Of Annorath/HelpLink", "https://portal.annorath-game.com/#!faq");
+        reg.setValue("Relics Of Annorath/URLInfoAbout", "https://portal.annorath-game.com");
+        reg.setValue("Relics Of Annorath/DisplayIcon", installationPath.replace('/','\\') + "launcher\\downloads\\installer.exe");
+
         if(componentsSelected.at(3).toInt())
         {
-            createWindowsShortcuts(QString(qgetenv("APPDATA")) + "/Microsoft/Windows/Start Menu/Programs/Relics of Annorath.lnk");
+            Logging::addEntry(LOG_LEVEL_INF, "Creating programs entry", FUNCTION_NAME);
+            createWindowsShortcuts(QString(qgetenv("ProgramData")) + "/Microsoft/Windows/Start Menu/Programs/Relics of Annorath.lnk");
         }
         if(componentsSelected.at(4).toInt())
         {
+            Logging::addEntry(LOG_LEVEL_INF, "Creating desktop shortcut", FUNCTION_NAME);
             createWindowsShortcuts(QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0) + "/Relics of Annorath.lnk");
         }
+
+        // Copy the installer to the download directory of the launcher, we need it for repair and uninstallation
+        QFile::remove(installationPath + "launcher/downloads/installer.exe");
+        QFile::copy(QCoreApplication::applicationFilePath(), installationPath + "launcher/downloads/installer.exe");
+
+        Logging::addEntry(LOG_LEVEL_INF, "Installation complete", FUNCTION_NAME);
 
         // Set last page
         mainWidget->setCustomContentId(5);

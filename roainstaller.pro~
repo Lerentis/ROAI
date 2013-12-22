@@ -47,8 +47,8 @@ SOURCES +=      src/cpp/main.cpp\
                 src/cpp/roainstaller.cpp \
                 src/cpp/roamainwidget.cpp \
                 src/cpp/windowsprocess.cpp \
-	        src/cpp/logging.cpp \
-	        src/cpp/logger.cpp
+    src/cpp/logging.cpp \
+    src/cpp/logger.cpp
 
 HEADERS  +=     src/h/roapagewelcome.h \
                 src/h/roapagelicense.h \
@@ -58,10 +58,10 @@ HEADERS  +=     src/h/roapagewelcome.h \
                 src/h/roapagefinish.h \
                 src/h/roainstaller.h \
                 src/h/roamainwidget.h \
-	        src/h/windowsprocess.h \
-	        src/h/logging.h \
-	        src/h/logger.h \
-	        src/h/constants.h
+    src/h/windowsprocess.h \
+    src/h/logging.h \
+    src/h/logger.h \
+    src/h/constants.h
 
 FORMS    +=     src/ui/roapagewelcome.ui \
                 src/ui/roapagelicense.ui \

@@ -63,7 +63,7 @@ void WindowsProcess::setProcessEnv(QString _path, QString _args)
 void WindowsProcess::setProcessEnvLauncher(QString _path, QString _env)
 {
     installationPath = _path;
-    env = _env;
+    env = _env + "launcher/";
     mode = 1;
 }
 
@@ -81,6 +81,7 @@ void WindowsProcess::run()
 
         LPCWSTR path = reinterpret_cast<const wchar_t *>(qPath.utf16());
         LPCWSTR envVal = reinterpret_cast<const wchar_t *>(QString("PATH").utf16());
+        LPCWSTR lpDir = reinterpret_cast<const wchar_t *>(env.utf16());
 
         SetEnvironmentVariable(envVal,path);
 
@@ -92,7 +93,7 @@ void WindowsProcess::run()
         shExInfo.lpVerb = NULL;
         shExInfo.lpFile = reinterpret_cast<const WCHAR*>(installationPath.utf16());
         shExInfo.lpParameters = NULL;
-        shExInfo.lpDirectory = 0;
+        shExInfo.lpDirectory = lpDir;
         shExInfo.nShow = SW_SHOW;
         shExInfo.hInstApp = 0;
 

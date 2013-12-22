@@ -62,9 +62,15 @@
 /******************************************************************************/
 
 #include "../h/roamainwidget.h"
+#include "../h/logging.h"
 
 #ifdef Q_OS_WIN
 #include "../h/windowsprocess.h"
+#include "winnls.h"
+#include "shobjidl.h"
+#include "objbase.h"
+#include "objidl.h"
+#include "shlguid.h"
 #endif
 
 
@@ -223,7 +229,7 @@ class ROAInstaller : public QObject
         /**
          * \brief Files left to download
          */
-        int filesLeft;
+        qint32 filesLeft;
 
         /**
          * \brief Block mode, if a condition is to bad some actions are disabled (no installPath = we can't verify anything)
@@ -282,8 +288,10 @@ class ROAInstaller : public QObject
         /**
          * \brief Create linux shortcuts
          * \param _path The path where the shortcut is created
+         * \param _binaryName Name of the binary
+         * \param _display Should icon be visible or not
          */
-        void createLinuxShortcut(QString _path);
+        void createLinuxShortcut(QString _path, QString _binaryName, bool _display);
 #endif
 
 #ifdef Q_OS_WIN32
