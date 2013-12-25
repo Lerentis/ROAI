@@ -5,10 +5,9 @@
 #-------------------------------------------------
 
 QT       += core gui network widgets
-CONFIG += static
-#QTPLUGIN += xcb
+CONFIG   += static
 
-TARGET = roainstaller
+TARGET   = roainstaller
 TEMPLATE = app
 
 # Special libs for windows build
@@ -84,6 +83,3 @@ TRANSLATIONS =  resources/translations/roai_french.ts \
 RESOURCES +=    resources/res.qrc
 
 RC_FILE =       src/roainstaller.rc
-
-OTHER_FILES +=
-
