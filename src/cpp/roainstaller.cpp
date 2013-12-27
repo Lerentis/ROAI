@@ -1,4 +1,4 @@
-/**
+﻿/**
  * \copyright   Copyright © 2012 QuantumBytes inc.
  *
  *              For more information, see https://www.quantum-bytes.com/
@@ -665,11 +665,17 @@ void ROAInstaller::installOptionalComponents()
     if(componentsSelected.at(1).toInt())
     {
         Logging::addEntry(LOG_LEVEL_INF, "Prepare installation of MSVC", FUNCTION_NAME);
-
+#ifdef Q_OS_WIN64
         processPaths.append(installationPath + "launcher/downloads/vcredist2010_x64.exe");
         processArgs.append(" /q");
         processPaths.append(installationPath + "launcher/downloads/vcredist2012_x64.exe");
         processArgs.append(" /q");
+#else
+        processPaths.append(installationPath + "launcher/downloads/vcredist2010_x86.exe");
+        processArgs.append(" /q");
+        processPaths.append(installationPath + "launcher/downloads/vcredist2012_x86.exe");
+        processArgs.append(" /q");
+#endif
     }
 
     if(componentsSelected.at(2).toInt())
@@ -746,56 +752,8 @@ void ROAInstaller::createLinuxShortcut(QString _path, QString _binaryName, bool 
 #ifdef Q_OS_WIN
 void ROAInstaller::createWindowsShortcuts(QString _path)
 {
-    // As we know it from the windows api, nothing is easy...
-    HRESULT hres;
-    IShellLink* psl;
-
-    // Do some casting (LPCWSTR is a bad joke isn't?)
-    LPCWSTR launcherFile = reinterpret_cast<const WCHAR*>(QString(installationPath.replace('/','\\') + "launcher\\ROALauncher.exe").utf16());
-    LPCSTR path = _path.replace('/', '\\').toStdString().c_str();
-
-    // Create instance
-    hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (LPVOID*)&psl);
-
-    // Check if it worked
-    if (SUCCEEDED(hres))
-    {
-        IPersistFile* ppf;
-
-        // Set the path to the shortcut target and add the description.
-        psl->SetPath( launcherFile );
-        psl->SetDescription(reinterpret_cast<const WCHAR*>(QString("Relics of Annorath launcher").utf16()));
-
-        // Query IShellLink for the IPersistFile interface, used for saving the
-        // shortcut in persistent storage.
-        hres = psl->QueryInterface(IID_IPersistFile, (LPVOID*)&ppf);
-
-        // Check again
-        if (SUCCEEDED(hres))
-        {
-            // I love the windows API, not
-            WCHAR wsz[MAX_PATH];
-
-            // Ensure that the string is Unicode.
-            MultiByteToWideChar(CP_ACP, 0, path, -1, wsz, MAX_PATH);
-
-            // Save the link by calling IPersistFile::Save.
-            hres = ppf->Save(wsz, TRUE);
-            ppf->Release();
-        }
-        else
-        {
-            Logging::addEntry(LOG_LEVEL_ERR, "Query interface failed", FUNCTION_NAME);
-        }
-
-        psl->Release();
-    }
-    else
-    {
-        Logging::addEntry(LOG_LEVEL_ERR, "CoCreateInstance failed", FUNCTION_NAME);
-    }
-
-    // We are done, WOW!
+    Logging::addEntry(LOG_LEVEL_INF, "Creating shortcut under " + _path, FUNCTION_NAME);
+    QFile::link(installationPath + "launcher\\ROALauncher.exe", _path);
 }
 #endif
 

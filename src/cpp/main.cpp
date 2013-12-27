@@ -1,4 +1,4 @@
-/**
+﻿/**
  * \copyright   Copyright © 2012 QuantumBytes inc.
  *
  *              For more information, see https://www.quantum-bytes.com/
@@ -52,6 +52,57 @@
 #include "../h/roainstaller.h"
 #include "../h/logging.h"
 
+#ifdef Q_OS_WIN
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
+#include <psapi.h>
+#endif
+
+#ifdef Q_OS_WIN
+bool matchProcessName( DWORD processID, std::string processName)
+{
+    TCHAR szProcessName[MAX_PATH] = TEXT("<unknown>");
+
+    // Get a handle to the process.
+
+    HANDLE hProcess = OpenProcess( PROCESS_QUERY_INFORMATION |
+                                   PROCESS_VM_READ,
+                                   FALSE, processID );
+
+    // Get the process name.
+    if (NULL != hProcess )
+    {
+        HMODULE hMod;
+        DWORD cbNeeded;
+
+        if ( EnumProcessModules( hProcess, &hMod, sizeof(hMod),
+             &cbNeeded) )
+        {
+            GetModuleBaseName( hProcess, hMod, szProcessName,
+                               sizeof(szProcessName)/sizeof(TCHAR) );
+        }
+    }
+
+    // Release the handle to the process.
+    //CloseHandle( hProcess );
+
+    // Compare process name with your string
+    if(QString::fromWCharArray(szProcessName) == QString::fromStdString(processName))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    //bool matchFound = !_tcscmp(szProcessName, processName.c_str() );
+
+    //return matchFound;
+}
+#endif
+
+
 /**
  * \brief The main loop-
  *
@@ -77,6 +128,29 @@ int main(int argc, char *argv[])
 
     a.setOrganizationName("QuantumBytes inc.");
     a.setOrganizationDomain("quantum-bytes.com");
+
+#ifdef Q_OS_WIN
+    // Check if launcher is running
+    DWORD aProcesses[1024], cbNeeded, cProcesses;
+    unsigned int i;
+
+    EnumProcesses( aProcesses, sizeof(aProcesses), &cbNeeded );
+
+    cProcesses = cbNeeded / sizeof(DWORD);
+
+    for ( i = 0; i < cProcesses; i++ )
+    {
+            if( aProcesses[i] != 0 )
+            {
+                if(matchProcessName( aProcesses[i], "ROALauncher.exe" ))
+                {
+                    QMessageBox::warning(NULL, QObject::tr("Launcher running"), QObject::tr("Please close the launcher and try again!"));
+                    QApplication::quit();
+                }
+            }
+    }
+
+#endif
 
     // Add custom fonts
     QFontDatabase::addApplicationFont(":/font/Ubuntu-B.ttf");
