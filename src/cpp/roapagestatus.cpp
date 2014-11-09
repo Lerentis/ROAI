@@ -56,7 +56,7 @@ ROAPageStatus::ROAPageStatus(QWidget *parent) :
 
     // Style progressbar
     this->ui->qpStatus->setStyleSheet("QProgressBar {"
-                                      "  color: rgb(0, 0, 0);"
+                                      "  color: rgb(216, 216, 216);"
                                       "  border: 0px solid;"
                                       "  background-color: rgba(255, 255, 127, 40);"
                                       "  border-width:1px;"
@@ -64,7 +64,7 @@ ROAPageStatus::ROAPageStatus(QWidget *parent) :
                                       "  border-radius:6px;"
                                       "}"
                                       "QProgressBar::chunk {"
-                                      "  color: rgb(0, 0, 0);"
+                                      "  color: rgb(216, 216, 216);"
                                       "background-color: rgba(42, 85, 0, 90);"
                                       "  width: 20px;"
                                       "}");

@@ -25,6 +25,7 @@
   <property name="font">
    <font>
     <family>Ubuntu</family>
+    <pointsize>10</pointsize>
     <stylestrategy>PreferAntialias</stylestrategy>
     <kerning>false</kerning>
    </font>

@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>231</height>
+    <width>520</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>621</width>
-    <height>231</height>
+    <width>520</width>
+    <height>250</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>621</width>
-    <height>231</height>
+    <width>520</width>
+    <height>250</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -33,13 +33,14 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>361</width>
-     <height>24</height>
+     <width>501</width>
+     <height>46</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Ubuntu</family>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <layout class="QHBoxLayout" name="hlPath">
@@ -48,6 +49,7 @@
       <property name="font">
        <font>
         <family>Ubuntu</family>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
@@ -67,6 +69,7 @@ background-color: rgb(213, 213, 213);</string>
       <property name="font">
        <font>
         <family>Ubuntu</family>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
@@ -79,7 +82,7 @@ background-color: rgb(213, 213, 213);</string>
 border-style:solid;
 border-radius:6px;
 border-color: rgba(0, 0, 0, 120);
-background-color: rgba(238, 159, 0, 20);</string>
+background-color: rgb(213, 213, 213);</string>
       </property>
       <property name="text">
        <string>  Browse...  </string>

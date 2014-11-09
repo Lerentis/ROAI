@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>231</height>
+    <width>520</width>
+    <height>250</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>621</width>
-    <height>231</height>
+    <width>520</width>
+    <height>250</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>621</width>
-    <height>231</height>
+    <width>520</width>
+    <height>250</height>
    </size>
   </property>
   <property name="font">
@@ -39,14 +39,18 @@ color: rgb(0, 0, 0);</string>
     <rect>
      <x>2</x>
      <y>3</y>
-     <width>487</width>
-     <height>164</height>
+     <width>958</width>
+     <height>240</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Ubuntu</family>
+     <pointsize>10</pointsize>
     </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(216, 216, 216);</string>
    </property>
    <layout class="QVBoxLayout" name="vlCheckBoxes">
     <item>
@@ -57,13 +61,16 @@ color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Ubuntu</family>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
       </property>
       <property name="toolTip">
        <string>The Relics of Annorath Launcher</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>Relics of Annorath Launcher</string>
@@ -84,7 +91,7 @@ color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Ubuntu</family>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
@@ -92,8 +99,11 @@ color: rgb(0, 0, 0);</string>
       <property name="toolTip">
        <string>MSVC Runtime, if unsure please install</string>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(216, 216, 216);</string>
+      </property>
       <property name="text">
-       <string>Microsoft Visual C++ 2010/2012 Redistributable Package</string>
+       <string>Visual C++ 2010/2012 Redist</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -105,13 +115,16 @@ color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Ubuntu</family>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
       </property>
       <property name="toolTip">
        <string>OpenAL runtime, needed for sound playback</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>OpenAL (Open Audio Library)</string>
@@ -126,10 +139,13 @@ color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Ubuntu</family>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>Add desktop shortcut</string>
@@ -144,10 +160,13 @@ color: rgb(0, 0, 0);</string>
       <property name="font">
        <font>
         <family>Ubuntu</family>
-        <pointsize>12</pointsize>
+        <pointsize>10</pointsize>
         <stylestrategy>PreferAntialias</stylestrategy>
         <kerning>false</kerning>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>Add application menu entry</string>

@@ -29,61 +29,56 @@
    <string notr="true">background-color: rgba(162, 255, 152, 0%);
 color: rgb(0, 0, 0);</string>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget_2">
+  <widget class="QComboBox" name="qcLanguage">
    <property name="geometry">
     <rect>
-     <x>3</x>
-     <y>4</y>
-     <width>301</width>
-     <height>31</height>
+     <x>214</x>
+     <y>10</y>
+     <width>300</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>22</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu</family>
+     <pointsize>10</pointsize>
+     <stylestrategy>PreferAntialias</stylestrategy>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(216, 216, 216);</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="qlLanguage">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>200</width>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Ubuntu</family>
+     <pointsize>10</pointsize>
+     <stylestrategy>PreferAntialias</stylestrategy>
+     <kerning>false</kerning>
     </font>
    </property>
-   <layout class="QHBoxLayout" name="hlLanguage">
-    <property name="sizeConstraint">
-     <enum>QLayout::SetNoConstraint</enum>
-    </property>
-    <item>
-     <widget class="QLabel" name="qlLanguage">
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>12</pointsize>
-        <stylestrategy>PreferAntialias</stylestrategy>
-        <kerning>false</kerning>
-       </font>
-      </property>
-      <property name="text">
-       <string>Language:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="qcLanguage">
-      <property name="minimumSize">
-       <size>
-        <width>200</width>
-        <height>22</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>12</pointsize>
-        <stylestrategy>PreferAntialias</stylestrategy>
-        <kerning>false</kerning>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(216, 216, 216);</string>
+   </property>
+   <property name="text">
+    <string>Language:</string>
+   </property>
   </widget>
  </widget>
  <resources/>

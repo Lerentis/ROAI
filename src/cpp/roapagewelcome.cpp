@@ -57,12 +57,19 @@ ROAPageWelcome::ROAPageWelcome(QWidget *parent) :
 
     ui->setupUi(this);
 
-    ui->qcLanguage->setStyleSheet("QComboBox QAbstractItemView { background-color: lightgray; }"
-                                  "QComboBox { border-width:1px;"
-                                  "border-style:solid;"
-                                  "border-radius:4px;"
-                                  "border-color: rgba(0, 0, 0, 120);"
-                                  "selection-background-color: #b79155; }");
+    ui->qcLanguage->setStyleSheet("QComboBox {"
+                                  " background-color: rgb(255, 255, 255, 200);"
+                                  " border-width:1px;"
+                                  " border-style:solid;"
+                                  " border-radius:4px;"
+                                  "}"
+                                  "QComboBox:!editable:on, QComboBox::drop-down:editable:on, QComboBox:!editable:off, QComboBox::drop-down:editable:off, QAbstractItemView {"
+                                  " background-color: rgba(255, 204, 0, 80);"
+                                  " color: #000000;"
+                                  " border-width:1px;"
+                                  " border-style:solid;"
+                                  " border-radius:4px;"
+                                  "}");
 
     // Add values to the boxes for language seleciton
     ui->qcLanguage->addItem( "English", "english" );

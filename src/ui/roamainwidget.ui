@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>781</width>
-    <height>648</height>
+    <width>911</width>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>2</x>
      <y>0</y>
-     <width>769</width>
-     <height>649</height>
+     <width>901</width>
+     <height>531</height>
     </rect>
    </property>
    <property name="font">
@@ -34,52 +34,25 @@
     <string notr="true">background-image: url(:/images/background.png);</string>
    </property>
   </widget>
-  <widget class="QLabel" name="qlTitel">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>144</y>
-     <width>441</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Ubuntu</family>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(152, 55, 0);</string>
-   </property>
-   <property name="text">
-    <string>Relics of Annorath - Installation</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="qlDesc">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>230</y>
-     <width>621</width>
-     <height>61</height>
+     <x>337</x>
+     <y>77</y>
+     <width>530</width>
+     <height>110</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Ubuntu</family>
-     <pointsize>12</pointsize>
+     <pointsize>10</pointsize>
      <stylestrategy>PreferAntialias</stylestrategy>
      <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">border: 0px;
-color: rgb(0, 0, 0);</string>
+    <string notr="true">color: rgb(216, 216, 216);</string>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -94,10 +67,10 @@ color: rgb(0, 0, 0);</string>
   <widget class="QWidget" name="qwContent" native="true">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>290</y>
-     <width>621</width>
-     <height>241</height>
+     <x>337</x>
+     <y>190</y>
+     <width>520</width>
+     <height>250</height>
     </rect>
    </property>
    <property name="font">
@@ -106,22 +79,22 @@ color: rgb(0, 0, 0);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(0, 0, 0);</string>
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
   </widget>
   <widget class="QLabel" name="qlSubtitel">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>190</y>
-     <width>631</width>
-     <height>31</height>
+     <x>290</x>
+     <y>29</y>
+     <width>590</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Ubuntu</family>
-     <pointsize>16</pointsize>
+     <pointsize>11</pointsize>
      <weight>75</weight>
      <bold>true</bold>
      <stylestrategy>PreferAntialias</stylestrategy>
@@ -132,7 +105,7 @@ color: rgb(0, 0, 0);</string>
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(0, 0, 0);</string>
+    <string notr="true">color: #e27a28;</string>
    </property>
    <property name="text">
     <string>Relics of Annorath Alpha</string>
@@ -150,10 +123,10 @@ color: rgb(0, 0, 0);</string>
   <widget class="QPushButton" name="qbCancel">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>558</y>
-     <width>95</width>
-     <height>18</height>
+     <x>724</x>
+     <y>460</y>
+     <width>150</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
@@ -167,12 +140,9 @@ color: rgb(0, 0, 0);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
+    <string notr="true">border-width:0px;
 border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
+color: #e27a28;</string>
    </property>
    <property name="text">
     <string>Cancel</string>
@@ -181,10 +151,10 @@ color: rgb(0, 0, 0);</string>
   <widget class="QPushButton" name="qpNext">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>558</y>
-     <width>95</width>
-     <height>18</height>
+     <x>565</x>
+     <y>460</y>
+     <width>150</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
@@ -198,12 +168,9 @@ color: rgb(0, 0, 0);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
+    <string notr="true">border-width:0px;
 border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
+color: #e27a28;</string>
    </property>
    <property name="text">
     <string>Next &gt;</string>
@@ -212,10 +179,10 @@ color: rgb(0, 0, 0);</string>
   <widget class="QPushButton" name="qpBack">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>558</y>
-     <width>95</width>
-     <height>18</height>
+     <x>405</x>
+     <y>460</y>
+     <width>150</width>
+     <height>30</height>
     </rect>
    </property>
    <property name="font">
@@ -229,25 +196,54 @@ color: rgb(0, 0, 0);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255, 0);
-border-width:1px;
+    <string notr="true">border-width:0px;
 border-style:solid;
-border-radius:4px;
-border-color: rgba(0, 0, 0, 120);
-color: rgb(0, 0, 0);</string>
+color: #e27a28;</string>
    </property>
    <property name="text">
     <string>&lt; Back</string>
    </property>
   </widget>
+  <widget class="QLabel" name="qlPlaceholder">
+   <property name="geometry">
+    <rect>
+     <x>329</x>
+     <y>70</y>
+     <width>546</width>
+     <height>380</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ubuntu</family>
+     <pointsize>12</pointsize>
+     <stylestrategy>PreferAntialias</stylestrategy>
+     <kerning>false</kerning>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 0px;
+color: rgb(255, 255, 255);
+background-color: rgba(0,0,0,100);</string>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>background</zorder>
-  <zorder>qlTitel</zorder>
-  <zorder>qlDesc</zorder>
   <zorder>qlSubtitel</zorder>
-  <zorder>qwContent</zorder>
   <zorder>qbCancel</zorder>
   <zorder>qpNext</zorder>
   <zorder>qpBack</zorder>
+  <zorder>qlPlaceholder</zorder>
+  <zorder>qlDesc</zorder>
+  <zorder>qwContent</zorder>
  </widget>
  <resources/>
  <connections/>
