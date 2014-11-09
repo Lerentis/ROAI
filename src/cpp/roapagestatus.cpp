@@ -62,11 +62,15 @@ ROAPageStatus::ROAPageStatus(QWidget *parent) :
                                       "  border-width:1px;"
                                       "  border-style:solid;"
                                       "  border-radius:6px;"
+                                      "  font-size: 28px;"
+                                      "  font-family: \"Ubuntu\";"
                                       "}"
                                       "QProgressBar::chunk {"
                                       "  color: rgb(216, 216, 216);"
-                                      "background-color: rgba(42, 85, 0, 90);"
+                                      "  background-color: rgba(42, 85, 0, 90);"
                                       "  width: 20px;"
+                                      "  font-size: 28px;"
+                                      "  font-family: \"Ubuntu\";"
                                       "}");
 }
 

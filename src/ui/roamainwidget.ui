@@ -24,7 +24,6 @@
    </property>
    <property name="font">
     <font>
-     <family>Ubuntu</family>
      <pointsize>11</pointsize>
      <stylestrategy>PreferAntialias</stylestrategy>
      <kerning>false</kerning>
@@ -40,19 +39,17 @@
      <x>337</x>
      <y>77</y>
      <width>530</width>
-     <height>110</height>
+     <height>80</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Ubuntu</family>
-     <pointsize>10</pointsize>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
+     <pointsize>-1</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(216, 216, 216);</string>
+    <string notr="true">color: rgb(216, 216, 216);
+font-size: 20px;</string>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -68,25 +65,26 @@
    <property name="geometry">
     <rect>
      <x>337</x>
-     <y>190</y>
+     <y>150</y>
      <width>520</width>
      <height>250</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Ubuntu</family>
+     <pointsize>-1</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);</string>
+    <string notr="true">color: rgb(255, 255, 255);
+font-size: 28px;</string>
    </property>
   </widget>
   <widget class="QLabel" name="qlSubtitel">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>29</y>
+     <x>280</x>
+     <y>30</y>
      <width>590</width>
      <height>30</height>
     </rect>
@@ -94,18 +92,22 @@
    <property name="font">
     <font>
      <family>Ubuntu</family>
-     <pointsize>11</pointsize>
+     <pointsize>-1</pointsize>
      <weight>75</weight>
      <bold>true</bold>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
     </font>
    </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="styleSheet">
-    <string notr="true">color: #e27a28;</string>
+    <string notr="true">color: #e27a28;
+font-size: 28px;
+font-family: &quot;Ubuntu&quot;;
+font-weight: bold;</string>
    </property>
    <property name="text">
     <string>Relics of Annorath Alpha</string>

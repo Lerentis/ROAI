@@ -32,10 +32,10 @@ color: rgb(0, 0, 0);</string>
   <widget class="QComboBox" name="qcLanguage">
    <property name="geometry">
     <rect>
-     <x>214</x>
-     <y>10</y>
+     <x>200</x>
+     <y>0</y>
      <width>300</width>
-     <height>38</height>
+     <height>28</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -47,34 +47,34 @@ color: rgb(0, 0, 0);</string>
    <property name="font">
     <font>
      <family>Ubuntu</family>
-     <pointsize>10</pointsize>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
+     <pointsize>-1</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(216, 216, 216);</string>
+    <string notr="true">color: rgb(216, 216, 216);
+font-size: 20px;
+font-family: &quot;Ubuntu&quot;;</string>
    </property>
   </widget>
   <widget class="QLabel" name="qlLanguage">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
+     <x>0</x>
+     <y>0</y>
      <width>200</width>
-     <height>38</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Ubuntu</family>
-     <pointsize>10</pointsize>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
+     <pointsize>-1</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(216, 216, 216);</string>
+    <string notr="true">color: rgb(216, 216, 216);
+font-size: 20px;
+font-family: &quot;Ubuntu&quot;;</string>
    </property>
    <property name="text">
     <string>Language:</string>

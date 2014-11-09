@@ -91,14 +91,13 @@
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>6</pointsize>
-      <italic>true</italic>
-      <stylestrategy>PreferAntialias</stylestrategy>
-      <kerning>false</kerning>
+      <pointsize>-1</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(216, 216, 216);</string>
+     <string notr="true">color: rgb(216, 216, 216);
+font-size: 18px;
+font-family: &quot;Ubuntu&quot;;</string>
     </property>
     <property name="text">
      <string/>
