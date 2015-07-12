@@ -46,32 +46,18 @@
    <layout class="QHBoxLayout" name="hlPath">
     <item>
      <widget class="QLineEdit" name="qlPath">
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>-1</pointsize>
-       </font>
-      </property>
       <property name="styleSheet">
        <string notr="true">border-width:1px;
 border-style:solid;
 border-radius:4px;
 border-color: rgba(0, 0, 0, 120);
 color: rgb(0, 0, 0);
-background-color: rgb(213, 213, 213);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+background-color: rgb(213, 213, 213);</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="qbBrowse">
-      <property name="font">
-       <font>
-        <family>Ubuntu</family>
-        <pointsize>-1</pointsize>
-       </font>
-      </property>
       <property name="autoFillBackground">
        <bool>false</bool>
       </property>
@@ -80,9 +66,7 @@ font-family: &quot;Ubuntu&quot;;</string>
 border-style:solid;
 border-radius:6px;
 border-color: rgba(0, 0, 0, 120);
-background-color: rgb(213, 213, 213);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+background-color: rgb(213, 213, 213);</string>
       </property>
       <property name="text">
        <string>  Browse...  </string>

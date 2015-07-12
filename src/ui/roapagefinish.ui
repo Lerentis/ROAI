@@ -22,14 +22,6 @@
     <height>231</height>
    </size>
   </property>
-  <property name="font">
-   <font>
-    <family>Ubuntu</family>
-    <pointsize>10</pointsize>
-    <stylestrategy>PreferAntialias</stylestrategy>
-    <kerning>false</kerning>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>

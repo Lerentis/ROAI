@@ -40,7 +40,7 @@ color: rgb(0, 0, 0);</string>
      <x>0</x>
      <y>0</y>
      <width>520</width>
-     <height>140</height>
+     <height>162</height>
     </rect>
    </property>
    <property name="font">
@@ -58,13 +58,16 @@ color: rgb(0, 0, 0);</string>
       <property name="enabled">
        <bool>false</bool>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="toolTip">
        <string>The Relics of Annorath Launcher</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(216, 216, 216);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>Relics of Annorath Launcher</string>
@@ -82,16 +85,19 @@ font-family: &quot;Ubuntu&quot;;</string>
       <property name="enabled">
        <bool>false</bool>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="toolTip">
        <string>MSVC Runtime, if unsure please install</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(216, 216, 216);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
-       <string>Visual C++ 2010/2012 Redist</string>
+       <string>Visual C++ Redist</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -100,13 +106,16 @@ font-family: &quot;Ubuntu&quot;;</string>
     </item>
     <item>
      <widget class="QCheckBox" name="cbOAL">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="toolTip">
        <string>OpenAL runtime, needed for sound playback</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(216, 216, 216);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>OpenAL (Open Audio Library)</string>
@@ -118,10 +127,13 @@ font-family: &quot;Ubuntu&quot;;</string>
     </item>
     <item>
      <widget class="QCheckBox" name="cbDesktop">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(216, 216, 216);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>Add desktop shortcut</string>
@@ -133,10 +145,13 @@ font-family: &quot;Ubuntu&quot;;</string>
     </item>
     <item>
      <widget class="QCheckBox" name="cbMenuEntry">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
       <property name="styleSheet">
-       <string notr="true">color: rgb(216, 216, 216);
-font-size: 20px;
-font-family: &quot;Ubuntu&quot;;</string>
+       <string notr="true">color: rgb(216, 216, 216);</string>
       </property>
       <property name="text">
        <string>Add application menu entry</string>

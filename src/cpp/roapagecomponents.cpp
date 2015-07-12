@@ -58,6 +58,12 @@ ROAPageComponents::ROAPageComponents(QWidget *parent) :
     ui->cbMSVC->hide();
     ui->cbOAL->hide();
 #endif
+    ui->cbMenuEntry->setStyleSheet("QCheckBox::indicator::checked {image: url(:/images/checkbox_checked.png)} QCheckBox::indicator::unchecked {image: url(:/images/checkbox_unchecked.png)}");
+    ui->cbDesktop->setStyleSheet("QCheckBox::indicator::checked {image: url(:/images/checkbox_checked.png)} QCheckBox::indicator::unchecked {image: url(:/images/checkbox_unchecked.png)}");
+    ui->cbLauncher->setStyleSheet("QCheckBox::indicator::checked {image: url(:/images/checkbox_checked.png)} QCheckBox::indicator::unchecked {image: url(:/images/checkbox_unchecked.png)}");
+    ui->cbMSVC->setStyleSheet("QCheckBox::indicator::checked {image: url(:/images/checkbox_checked.png)} QCheckBox::indicator::unchecked {image: url(:/images/checkbox_unchecked.png)}");
+    ui->cbOAL->setStyleSheet("QCheckBox::indicator::checked {image: url(:/images/checkbox_checked.png)} QCheckBox::indicator::unchecked {image: url(:/images/checkbox_unchecked.png)}");
+
 }
 
 ROAPageComponents::~ROAPageComponents()

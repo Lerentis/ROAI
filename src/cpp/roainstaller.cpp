@@ -426,19 +426,11 @@ void ROAInstaller::getRemoteFileList()
     connect(&manager, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)),this, SLOT(slot_getSSLError(QNetworkReply*, const QList<QSslError>&)));
 
 #ifdef Q_OS_LINUX
-#ifdef __x86_64__
-    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x64/client.txt")));
-#else
-    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x86/client.txt")));
-#endif
+    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux/client.txt")));
 #endif
 
 #ifdef Q_OS_WIN
-#ifdef Q_OS_WIN64
-    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x64/client.txt")));
-#else
-    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x86/client.txt")));
-#endif
+    request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows/client.txt")));
 #endif
 
     // Start download
@@ -571,19 +563,11 @@ void ROAInstaller::getNextFile()
 
         // Set URL and start download
 #ifdef Q_OS_LINUX
-#ifdef __x86_64__
-        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x64/") + fileList.at(filesLeft-1)));
-#else
-        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux_x86/") + fileList.at(filesLeft-1)));
-#endif
+        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("linux/") + fileList.at(filesLeft-1)));
 #endif
 
 #ifdef Q_OS_WIN
-#ifdef Q_OS_WIN64
-        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x64/") + fileList.at(filesLeft-1)));
-#else
-        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows_x86/") + fileList.at(filesLeft-1)));
-#endif
+        request.setUrl(QUrl(HTTP_URL_CONTENT_DATA + QString("windows/") + fileList.at(filesLeft-1)));
 #endif
         manager.get(request);
 
@@ -665,17 +649,12 @@ void ROAInstaller::installOptionalComponents()
     if(componentsSelected.at(1).toInt())
     {
         Logging::addEntry(LOG_LEVEL_INF, "Prepare installation of MSVC", FUNCTION_NAME);
-#ifdef Q_OS_WIN64
         processPaths.append(installationPath + "launcher/downloads/vcredist2010_x64.exe");
         processArgs.append(" /q");
         processPaths.append(installationPath + "launcher/downloads/vcredist2012_x64.exe");
         processArgs.append(" /q");
-#else
-        processPaths.append(installationPath + "launcher/downloads/vcredist2010_x86.exe");
+        processPaths.append(installationPath + "launcher/downloads/vcredist2013_x64.exe");
         processArgs.append(" /q");
-        processPaths.append(installationPath + "launcher/downloads/vcredist2012_x86.exe");
-        processArgs.append(" /q");
-#endif
     }
 
     if(componentsSelected.at(2).toInt())

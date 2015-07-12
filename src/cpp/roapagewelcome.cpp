@@ -62,8 +62,6 @@ ROAPageWelcome::ROAPageWelcome(QWidget *parent) :
                                   " border-width:1px;"
                                   " border-style:solid;"
                                   " border-radius:4px;"
-                                  " font-size: 20px;"
-                                  " font-family: \"Ubuntu\";"
                                   "}"
                                   "QComboBox:!editable:on, QComboBox::drop-down:editable:on, QComboBox:!editable:off, QComboBox::drop-down:editable:off, QAbstractItemView {"
                                   " background-color: rgba(255, 204, 0, 80);"

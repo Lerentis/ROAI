@@ -163,6 +163,10 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont(":/font/Ubuntu-R.ttf");
     QFontDatabase::addApplicationFont(":/font/Ubuntu-RI.ttf");
 
+    // Set default font
+    QFont font("Ubuntu", 10);
+    a.setFont(font);
+
     // Start the installer
     ROAInstaller installer;
 

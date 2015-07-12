@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define HTTP_URL_CONTENT_DATA "https://launcher.annorath-game.com/current/"
+#define HTTP_URL_CONTENT_DATA "https://roa-launcher.s3.amazonaws.com/current/"
 
 enum
 {

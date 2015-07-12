@@ -22,13 +22,6 @@
      <height>531</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
-    </font>
-   </property>
    <property name="styleSheet">
     <string notr="true">background-image: url(:/images/background.png);</string>
    </property>
@@ -44,12 +37,11 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>-1</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(216, 216, 216);
-font-size: 20px;</string>
+    <string notr="true">color: rgb(216, 216, 216);</string>
    </property>
    <property name="text">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -72,12 +64,11 @@ font-size: 20px;</string>
    </property>
    <property name="font">
     <font>
-     <pointsize>-1</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font-size: 28px;</string>
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
   </widget>
   <widget class="QLabel" name="qlSubtitel">
@@ -92,7 +83,7 @@ font-size: 28px;</string>
    <property name="font">
     <font>
      <family>Ubuntu</family>
-     <pointsize>-1</pointsize>
+     <pointsize>20</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
@@ -104,10 +95,7 @@ font-size: 28px;</string>
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: #e27a28;
-font-size: 28px;
-font-family: &quot;Ubuntu&quot;;
-font-weight: bold;</string>
+    <string notr="true">color: #e27a28;</string>
    </property>
    <property name="text">
     <string>Relics of Annorath Alpha</string>
@@ -116,7 +104,7 @@ font-weight: bold;</string>
     <enum>Qt::PlainText</enum>
    </property>
    <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    <set>Qt::AlignHCenter|Qt::AlignTop</set>
    </property>
    <property name="margin">
     <number>-1</number>
@@ -133,12 +121,9 @@ font-weight: bold;</string>
    </property>
    <property name="font">
     <font>
-     <family>Ubuntu</family>
-     <pointsize>10</pointsize>
+     <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">
@@ -161,12 +146,9 @@ color: #e27a28;</string>
    </property>
    <property name="font">
     <font>
-     <family>Ubuntu</family>
-     <pointsize>10</pointsize>
+     <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">
@@ -189,12 +171,9 @@ color: #e27a28;</string>
    </property>
    <property name="font">
     <font>
-     <family>Ubuntu</family>
-     <pointsize>10</pointsize>
+     <pointsize>14</pointsize>
      <weight>75</weight>
      <bold>true</bold>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
     </font>
    </property>
    <property name="styleSheet">
@@ -214,14 +193,6 @@ color: #e27a28;</string>
      <width>546</width>
      <height>380</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Ubuntu</family>
-     <pointsize>12</pointsize>
-     <stylestrategy>PreferAntialias</stylestrategy>
-     <kerning>false</kerning>
-    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">border: 0px;

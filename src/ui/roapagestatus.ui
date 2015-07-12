@@ -57,10 +57,7 @@
     </property>
     <property name="font">
      <font>
-      <family>Ubuntu</family>
-      <pointsize>10</pointsize>
-      <stylestrategy>PreferAntialias</stylestrategy>
-      <kerning>false</kerning>
+      <pointsize>11</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -88,16 +85,8 @@
       <height>16777215</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Ubuntu</family>
-      <pointsize>-1</pointsize>
-     </font>
-    </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(216, 216, 216);
-font-size: 18px;
-font-family: &quot;Ubuntu&quot;;</string>
+     <string notr="true">color: rgb(216, 216, 216);</string>
     </property>
     <property name="text">
      <string/>
