@@ -45,7 +45,7 @@
 /******************************************************************************/
 #include <QString>
 #include <QFile>
-#include <QApplication>
+#include <qt5/QtWidgets/QApplication>
 #include <QTextStream>
 #include <QDateTime>
 
