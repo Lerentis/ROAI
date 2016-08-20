@@ -32,8 +32,8 @@ win32 {
 }
 
 unix {
-    LIBS += "/usr/local/ssl/lib/libssl.a"
-    LIBS += "/usr/local/ssl/lib/libcrypto.a"
+    LIBS += -lssl
+    LIBS += -lcrypto
 }
 
 SOURCES +=      src/cpp/main.cpp\
