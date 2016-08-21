@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network widgets
+QT       += core gui network
+QT       += widgets
 CONFIG   += static
 
 TARGET   = roainstaller
