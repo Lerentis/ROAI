@@ -58,3 +58,5 @@ Linux:
 	OPENSSL_LIBS="-L/usr/local/ssl/lib -lssl -lcrypto" ./configure -release -opensource -nomake examples -openssl-linked -static -opengl desktop -qt-xcb -qt-libjpeg -qt-libpng  -no-gif -qt-zlib -fontconfig
 
 Note: http://qt-project.org/wiki/Building_Qt_5_from_Git
+
+--OBS--
