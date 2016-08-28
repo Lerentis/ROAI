@@ -1,0 +1,7 @@
+Package: roa-installer
+Architecture: x86_64
+Maintainer: Orphan
+Depends: qt5-default, openssl, 
+Priority: optional
+Version: 0.5
+Description: Installer for the game Relics of Annorath
