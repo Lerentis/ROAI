@@ -1,0 +1,31 @@
+# Maintainer: Tobias Trabelsi <Tobias.Trabelsi@quantum-bytes.com>
+
+pkgname=roa-installer-git
+pkgver=1.0
+pkgrel=1
+pkgdesc='Installer for the Relics of Annorath Game by Quantum Bytes'
+arch=('i686' 'x86_64')
+url='https://www.annorath-game.com/'
+license=('custom')
+depends=('qt5' 'openssl')
+makedepends=('git')
+provides=('roa-installer-git' 'roa-launcher-git')
+conflicts=('roa-installer' 'roa-launcher-git' 'roa-launcher')
+options=('!strip')
+source=('git+https://github.com/Lerentis/ROAI.git')
+sha256sums=('SKIP')
+
+pkgver() {
+	cd ROAI
+  	qmake -spec linux-g++ CONFIG+=release CONFIG+=qml_release -o Makefile roainstaller.pro
+  	qmake 
+  	make
+}
+
+package() {
+	chmod +x roainstaller
+	mv resources/images/icon.png /usr/share/icons/RoA.png
+	mv roainstaller /usr/bin
+}
+
+# vim: ts=2 sw=2 et:
