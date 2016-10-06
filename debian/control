@@ -1,7 +1,15 @@
-Package: roa-installer
-Architecture: x86_64
-Maintainer: Orphan
-Depends: qt5-default, openssl, 
+Source: roai
+Section: unknown
 Priority: optional
-Version: 0.5
-Description: Installer for the game Relics of Annorath
+Maintainer: Lerentis <lerentis@unknown>
+Build-Depends: debhelper (>= 9), qt5-base, openssl-dev
+Standards-Version: 3.9.8
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: https://anonscm.debian.org/collab-maint/roai.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/roai.git
+
+Package: roai
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
