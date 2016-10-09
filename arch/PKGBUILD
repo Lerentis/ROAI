@@ -7,7 +7,7 @@ pkgdesc='Installer for the Relics of Annorath Game by Quantum Bytes'
 arch=('i686' 'x86_64')
 url='https://www.annorath-game.com/'
 license=('custom')
-depends=('qt5' 'openssl')
+depends=('qt5-base' 'openssl')
 makedepends=('git')
 provides=('roa-installer-git' 'roa-launcher-git')
 conflicts=('roa-installer' 'roa-launcher-git' 'roa-launcher')
@@ -15,17 +15,61 @@ options=('!strip')
 source=('git+https://github.com/Lerentis/ROAI.git')
 sha256sums=('SKIP')
 
-pkgver() {
-	cd ROAI
-  	qmake -spec linux-g++ CONFIG+=release CONFIG+=qml_release -o Makefile roainstaller.pro
-  	qmake 
-  	make
+_gitroot='https://github.com/Lerentis/ROAI.git'
+_gitname='ROAI'
+
+build() {
+  cd "$srcdir"
+  msg "Connecting to GIT server...."
+
+  if [[ -d "$_gitname" ]]; then
+    cd "$_gitname" && git pull origin master
+    msg "The local files are updated."
+  else
+    git clone "$_gitroot" "$_gitname"
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting build..."
+
+  rm -rf "$srcdir/$_gitname-build"
+  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
+
+  #
+  # BUILD HERE
+  #
+  qmake -spec linux-g++ CONFIG+=release CONFIG+=qml_release -o Makefile roainstaller.pro
+  qmake
+  msg "qmake done"
+  make
+  msg "make done"
 }
 
 package() {
-	chmod +x roainstaller
-	mv resources/images/icon.png /usr/share/icons/RoA.png
-	mv roainstaller /usr/bin
+  cd "$srcdir/$_gitname-build"
+  install -d "${pkgdir}/usr/share/roai"
+  install -Dm755 "roainstaller" "${pkgdir}/usr/share/roai"
+
+  install -Dm755 "${srcdir}/arch/roainstaller.sh" "${pkgdir}/usr/bin/roainstaller"
+
+  install -Dm644 "${srcdir}/arch/roa-installer.desktop" "${pkgdir}/usr/share/applications/roa-installer.desktop"
 }
+
+
+#build() {
+#	cd "$srcdir/../RAOI"
+#	msg "starting qmake"
+#	qmake -spec linux-g++ CONFIG+=release CONFIG+=qml_release -o Makefile roainstaller.pro
+# 	qmake
+#	msg "compiling"
+# 	make
+#}
+
+#package() {
+#	chmod +x ./roainstaller
+#	install -Dm755 "resources/images/icon.png" "/usr/share/icons/RoA.png"
+#	install -Dm755 "roainstaller" "/usr/bin"
+#}
 
 # vim: ts=2 sw=2 et:
