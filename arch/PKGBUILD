@@ -19,32 +19,19 @@ _gitroot='https://github.com/Lerentis/ROAI.git'
 _gitname='ROAI'
 
 build() {
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
-
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin master
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
-
+  cd "$srcdir/ROAI"
   msg "GIT checkout done!"
   msg "Starting build..."
 
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
-
   qmake -spec linux-g++ CONFIG+=release CONFIG+=qml_release -o Makefile roainstaller.pro
   qmake
-  msg "qmake done"
+  msg "build em up..."
   make -j$(nproc)
-  msg "make done"
+  msg "...break em down"
 }
 
 package() {
-  cd "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname"
   install -d "${pkgdir}/usr/share/roai"
   install -Dm755 "roainstaller" "${pkgdir}/usr/share/roai"
 
